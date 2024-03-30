@@ -17,10 +17,7 @@ namespace Sistema_de_vendas
             InitializeComponent();
         }
 
-        private int _id;
         private string _productname;
-        private float _qtde;
-        private float _price;
         private int _index;
         public static int index;
 
@@ -53,8 +50,7 @@ namespace Sistema_de_vendas
         }
         public int ID
         {
-            get { return _id; }
-            set { _id = value; lblID.Text = value.ToString(); }
+            set { lblID.Text = value.ToString(); }
         }
 
         public string ProductName
@@ -65,14 +61,12 @@ namespace Sistema_de_vendas
 
         public float QTDE
         {
-            get { return _qtde; }
-            set { _qtde = value; lblQuant.Text = value.ToString(); }
+            set { lblQuant.Text = value.ToString(); }
         }
 
         public float Price
         {
-            get { return _price; }
-            set { _price = value; lblPrice.Text = value.ToString(); }
+            set { lblPrice.Text = value.ToString(); }
         }
     }
 }
