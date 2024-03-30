@@ -10,6 +10,17 @@ namespace Sistema_de_vendas
     {
         public static void ReadTXT()
         {
+            StreamWriter quantProd1 = new StreamWriter("quantProd.txt", true);
+            quantProd1.Close();
+            using (StreamReader sr = new StreamReader("quantProd.txt"))
+            {
+                string quantProd;
+                while ((quantProd = sr.ReadLine()) != null)
+                {
+                    CadProducts.quantProds = Convert.ToInt32(quantProd);
+                }
+            }
+
             StreamWriter ID1 = new StreamWriter("ID.txt", true);
             ID1.Close();
             using (StreamReader sr = new StreamReader("ID.txt"))
@@ -66,6 +77,13 @@ namespace Sistema_de_vendas
             QTDE1.Close();
             StreamWriter Price1 = new StreamWriter("Price.txt", false);
             Price1.Close();
+            StreamWriter quantProd1 = new StreamWriter("quantProd.txt", true);
+            quantProd1.Close();
+
+            using (StreamWriter sw = new StreamWriter("quantProd.txt", true))
+            {
+                sw.WriteLine(CadProducts.quantProds);
+            }
 
             foreach (int x in Stock.ID)
             {

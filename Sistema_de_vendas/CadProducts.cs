@@ -28,7 +28,7 @@ namespace Sistema_de_vendas
         }
 
         public static int mode = 0;
-        private int quantProds = 1;
+        public static int quantProds = 1;
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -67,6 +67,8 @@ namespace Sistema_de_vendas
                     Stock.Price[Products.index] = Convert.ToSingle(tbPrice.Text);
                     Stock.ProductName[Products.index] = tbName.Text;
                 }
+
+                quantProds++;
 
                 SaveInTXT.WriteTXT();
 
