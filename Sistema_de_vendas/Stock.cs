@@ -37,7 +37,7 @@ namespace Sistema_de_vendas
         {
             if (open == 0)
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 1000; i++)
                 {
                     ID.Add(i + 1);
                     ProductName.Add($"Produto {i + 1}");
@@ -80,7 +80,7 @@ namespace Sistema_de_vendas
                             count++;
                             flowPanelStock.Controls.Add(products[i]);
                         }
-                        if (searchType == 1 && products[i].ProductName == nameFilter)
+                        if (searchType == 1 && products[i].ProductName.StartsWith(nameFilter))
                         {
                             if ((count % 2) == 0)
                             {
