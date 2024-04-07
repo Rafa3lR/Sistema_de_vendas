@@ -10,6 +10,16 @@ namespace Sistema_de_vendas
     {
         public static void ReadTXT()
         {
+            int max = Stock.ID.Count();
+            for (int i = 0; i < max; i++)
+            {
+                Stock.ID.RemoveAt(0);
+                Stock.ProductName.RemoveAt(0);
+                Stock.QTDE.RemoveAt(0);
+                Stock.Price.RemoveAt(0);
+                Stock.openEdit.RemoveAt(0);
+            }
+
             StreamWriter quantProd1 = new StreamWriter("quantProd.txt", true);
             quantProd1.Close();
             using (StreamReader sr = new StreamReader("quantProd.txt"))
@@ -29,6 +39,7 @@ namespace Sistema_de_vendas
                 while ((ID = sr.ReadLine()) != null)
                 {
                     Stock.ID.Add(Convert.ToInt32(ID));
+                    Stock.openEdit.Add(0);
                 }
             }
 
@@ -64,6 +75,17 @@ namespace Sistema_de_vendas
                     Stock.Price.Add(Convert.ToSingle(Price));
                 }
             }
+
+            StreamWriter openEdit1 = new StreamWriter("OpenEdit.txt", true);
+            openEdit1.Close();
+            using (StreamReader sr = new StreamReader("OpenEdit.txt"))
+            {
+                string openEdit;
+                while ((openEdit = sr.ReadLine()) != null)
+                {
+                    Stock.openEdit.Add(Convert.ToInt32(openEdit));
+                }
+            }
         }
 
         public static void WriteTXT()
@@ -77,8 +99,10 @@ namespace Sistema_de_vendas
             QTDE1.Close();
             StreamWriter Price1 = new StreamWriter("Price.txt", false);
             Price1.Close();
-            StreamWriter quantProd1 = new StreamWriter("quantProd.txt", true);
+            StreamWriter quantProd1 = new StreamWriter("quantProd.txt", false);
             quantProd1.Close();
+            StreamWriter openEdit1 = new StreamWriter("OpenEdit.txt", false);
+            openEdit1.Close();
 
             using (StreamWriter sw = new StreamWriter("quantProd.txt", true))
             {
@@ -89,7 +113,7 @@ namespace Sistema_de_vendas
             {
                 using (StreamWriter sw = new StreamWriter("ID.txt", true))
                 {
-                    sw.WriteLine(Stock.ID[index]);
+                    sw.WriteLine(x);
                 }
                 
                 using (StreamWriter sw = new StreamWriter("ProductName.txt", true))
@@ -105,6 +129,11 @@ namespace Sistema_de_vendas
                 using (StreamWriter sw = new StreamWriter("Price.txt", true))
                 {
                     sw.WriteLine(Stock.Price[index]);
+                }
+
+                using (StreamWriter sw = new StreamWriter("OpenEdit.txt", true))
+                {
+                    sw.WriteLine(Stock.openEdit[index]);
                 }
 
                 index++;

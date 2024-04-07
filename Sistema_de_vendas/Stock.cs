@@ -25,11 +25,12 @@ namespace Sistema_de_vendas
         }
 
         private string nameFilter = "";
-        public int searchType, open = 0;
+        public static int searchType, open = 0, i;
         public static List<int> ID = new List<int>();
         public static List<string> ProductName = new List<string>();
         public static List<float> QTDE = new List<float>();
         public static List<float> Price = new List<float>();
+        public static List<int> openEdit = new List<int>();
         public static List<Products> products = new List<Products>();
 
         //Create random products for debugging
@@ -37,7 +38,7 @@ namespace Sistema_de_vendas
         {
             if (open == 0)
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     ID.Add(i + 1);
                     ProductName.Add($"Produto {i + 1}");
@@ -51,11 +52,14 @@ namespace Sistema_de_vendas
         public void PopulateItens()
         {
             flowPanelStock.Controls.Clear();
+            SaveInTXT.ReadTXT();
 
             int count = 0;
-            int i = 0;
+            i = 0;
             try
             {
+                Main.mainProgressBar.Maximum = ID.Count();
+
                 foreach (int x in ID)
                 {
                     products.Add(new Products());
@@ -108,7 +112,10 @@ namespace Sistema_de_vendas
                     }
 
                     i++;
+                    Main.mainProgressBar.Value = i;
                 }
+
+                Main.mainProgressBar.Value = 0;
             }
             catch { }
         }
@@ -135,12 +142,42 @@ namespace Sistema_de_vendas
 
         private void tbNameFilterFlex_Enter(object sender, EventArgs e)
         {
-            tbNameFilter.Text = "";
+            if (tbNameFilterFlex.Text == "NAME FLEXIBLE")
+            {
+                tbNameFilterFlex.Text = "";
+                tbNameFilterFlex.ForeColor = Color.Black;
+                tbNameFilter.ForeColor = Color.FromArgb(100, 114, 114, 114);
+                tbNameFilter.Text = "NAME RESTRICTED";
+            }
+        }
+
+        private void tbNameFilterFlex_Leave(object sender, EventArgs e)
+        {
+            if (tbNameFilterFlex.Text == "")
+            {
+                tbNameFilterFlex.ForeColor = Color.FromArgb(100, 114, 114, 114);
+                tbNameFilterFlex.Text = "NAME FLEXIBLE";
+            }
         }
 
         private void tbNameFilter_Enter(object sender, EventArgs e)
         {
-            tbNameFilterFlex.Text = "";
+            if (tbNameFilter.Text == "NAME RESTRICTED")
+            {
+                tbNameFilter.Text = "";
+                tbNameFilter.ForeColor = Color.Black;
+                tbNameFilterFlex.ForeColor = Color.FromArgb(100, 114, 114, 114);
+                tbNameFilterFlex.Text = "NAME FLEXIBLE";
+            }
+        }
+
+        private void tbNameFilter_Leave(object sender, EventArgs e)
+        {
+            if (tbNameFilter.Text == "")
+            {
+                tbNameFilter.ForeColor = Color.FromArgb(100, 114, 114, 114);
+                tbNameFilter.Text = "NAME RESTRICTED";
+            }
         }
 
         private void Stock_FormClosing(object sender, FormClosingEventArgs e)
@@ -148,6 +185,22 @@ namespace Sistema_de_vendas
             this.Parent = null;
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void btnADD_Click(object sender, EventArgs e)
+        {
+            CadProducts.mode = 0;
+            SaveInTXT.ReadTXT();
+            CadProducts cadProducts = new CadProducts();
+            cadProducts.Show();
+        }
+
+        private void Stock_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         private void btnID_Click(object sender, EventArgs e)
@@ -288,21 +341,6 @@ namespace Sistema_de_vendas
             }*/
 
             PopulateItens();
-        }
-
-        private void btnADD_Click(object sender, EventArgs e)
-        {
-            CadProducts.mode = 0;
-            CadProducts cadProducts = new CadProducts();
-            cadProducts.Show();
-        }
-
-        private void Stock_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.Close();
-            }
         }
     }
 }

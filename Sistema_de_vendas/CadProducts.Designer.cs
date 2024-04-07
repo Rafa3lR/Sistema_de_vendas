@@ -144,6 +144,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CadProducts";
             TopMost = true;
+            FormClosing += CadProducts_FormClosing;
             KeyDown += CadProducts_KeyDown;
             ResumeLayout(false);
             PerformLayout();

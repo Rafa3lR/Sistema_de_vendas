@@ -30,12 +30,8 @@
         {
             btnADD = new Button();
             panel1 = new Panel();
-            panel2 = new Panel();
             tbNameFilterFlex = new TextBox();
-            label3 = new Label();
-            label2 = new Label();
             tbNameFilter = new TextBox();
-            label1 = new Label();
             flowPanelStock = new FlowLayoutPanel();
             panel3 = new Panel();
             btnPrice = new Button();
@@ -43,7 +39,6 @@
             btnProductName = new Button();
             btnID = new Button();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,7 +48,7 @@
             btnADD.FlatAppearance.MouseOverBackColor = Color.LightSteelBlue;
             btnADD.FlatStyle = FlatStyle.Flat;
             btnADD.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnADD.Location = new Point(28, -1);
+            btnADD.Location = new Point(11, -1);
             btnADD.Name = "btnADD";
             btnADD.Size = new Size(90, 32);
             btnADD.TabIndex = 0;
@@ -65,7 +60,9 @@
             // 
             panel1.BackColor = Color.FromArgb(76, 0, 0);
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(tbNameFilterFlex);
             panel1.Controls.Add(btnADD);
+            panel1.Controls.Add(tbNameFilter);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
@@ -73,71 +70,33 @@
             panel1.Size = new Size(903, 32);
             panel1.TabIndex = 1;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.FromArgb(76, 0, 0);
-            panel2.Controls.Add(tbNameFilterFlex);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(tbNameFilter);
-            panel2.Controls.Add(label1);
-            panel2.Dock = DockStyle.Left;
-            panel2.Location = new Point(0, 32);
-            panel2.Margin = new Padding(0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(148, 443);
-            panel2.TabIndex = 2;
-            // 
             // tbNameFilterFlex
             // 
-            tbNameFilterFlex.Location = new Point(3, 115);
+            tbNameFilterFlex.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            tbNameFilterFlex.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            tbNameFilterFlex.ForeColor = Color.FromArgb(114, 114, 114);
+            tbNameFilterFlex.Location = new Point(748, 2);
             tbNameFilterFlex.Name = "tbNameFilterFlex";
             tbNameFilterFlex.Size = new Size(142, 25);
             tbNameFilterFlex.TabIndex = 4;
+            tbNameFilterFlex.Text = "NAME FLEXIBLE";
             tbNameFilterFlex.Enter += tbNameFilterFlex_Enter;
             tbNameFilterFlex.KeyDown += tbNameFilterFlex_KeyDown;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(3, 95);
-            label3.Name = "label3";
-            label3.Size = new Size(94, 17);
-            label3.TabIndex = 3;
-            label3.Text = "Name flexible";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(29, 3);
-            label2.Name = "label2";
-            label2.Size = new Size(90, 30);
-            label2.TabIndex = 2;
-            label2.Text = "FILTERS";
+            tbNameFilterFlex.Leave += tbNameFilterFlex_Leave;
             // 
             // tbNameFilter
             // 
-            tbNameFilter.Location = new Point(3, 65);
+            tbNameFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            tbNameFilter.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            tbNameFilter.ForeColor = Color.FromArgb(114, 114, 114);
+            tbNameFilter.Location = new Point(600, 2);
             tbNameFilter.Name = "tbNameFilter";
             tbNameFilter.Size = new Size(142, 25);
             tbNameFilter.TabIndex = 1;
+            tbNameFilter.Text = "NAME RESTRICTED";
             tbNameFilter.Enter += tbNameFilter_Enter;
             tbNameFilter.KeyDown += tbNameFilter_KeyDown;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(3, 45);
-            label1.Name = "label1";
-            label1.Size = new Size(106, 17);
-            label1.TabIndex = 0;
-            label1.Text = "Name restricted";
+            tbNameFilter.Leave += tbNameFilter_Leave;
             // 
             // flowPanelStock
             // 
@@ -145,10 +104,10 @@
             flowPanelStock.AutoScroll = true;
             flowPanelStock.BackColor = Color.LightSteelBlue;
             flowPanelStock.Font = new Font("Segoe UI", 9.75F);
-            flowPanelStock.Location = new Point(148, 63);
+            flowPanelStock.Location = new Point(0, 63);
             flowPanelStock.Margin = new Padding(0);
             flowPanelStock.Name = "flowPanelStock";
-            flowPanelStock.Size = new Size(755, 412);
+            flowPanelStock.Size = new Size(903, 412);
             flowPanelStock.TabIndex = 3;
             // 
             // panel3
@@ -159,20 +118,21 @@
             panel3.Controls.Add(btnQuant);
             panel3.Controls.Add(btnProductName);
             panel3.Controls.Add(btnID);
-            panel3.Location = new Point(148, 32);
+            panel3.Location = new Point(0, 32);
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(755, 31);
+            panel3.Size = new Size(903, 31);
             panel3.TabIndex = 2;
             // 
             // btnPrice
             // 
+            btnPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPrice.FlatAppearance.BorderSize = 0;
             btnPrice.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
             btnPrice.FlatStyle = FlatStyle.Flat;
             btnPrice.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnPrice.ForeColor = SystemColors.HighlightText;
-            btnPrice.Location = new Point(648, 0);
+            btnPrice.Location = new Point(787, 0);
             btnPrice.Margin = new Padding(0);
             btnPrice.Name = "btnPrice";
             btnPrice.Size = new Size(83, 33);
@@ -183,12 +143,13 @@
             // 
             // btnQuant
             // 
+            btnQuant.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnQuant.FlatAppearance.BorderSize = 0;
             btnQuant.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
             btnQuant.FlatStyle = FlatStyle.Flat;
             btnQuant.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnQuant.ForeColor = SystemColors.HighlightText;
-            btnQuant.Location = new Point(565, 0);
+            btnQuant.Location = new Point(704, 0);
             btnQuant.Margin = new Padding(0);
             btnQuant.Name = "btnQuant";
             btnQuant.Size = new Size(83, 33);
@@ -199,6 +160,7 @@
             // 
             // btnProductName
             // 
+            btnProductName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             btnProductName.FlatAppearance.BorderSize = 0;
             btnProductName.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
             btnProductName.FlatStyle = FlatStyle.Flat;
@@ -207,7 +169,7 @@
             btnProductName.Location = new Point(47, -2);
             btnProductName.Margin = new Padding(0);
             btnProductName.Name = "btnProductName";
-            btnProductName.Size = new Size(518, 33);
+            btnProductName.Size = new Size(657, 33);
             btnProductName.TabIndex = 5;
             btnProductName.Text = "Product Name";
             btnProductName.TextAlign = ContentAlignment.MiddleLeft;
@@ -237,7 +199,6 @@
             ClientSize = new Size(903, 475);
             Controls.Add(flowPanelStock);
             Controls.Add(panel3);
-            Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             KeyPreview = true;
@@ -249,8 +210,7 @@
             Load += Stock_Load;
             KeyDown += Stock_KeyDown;
             panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            panel1.PerformLayout();
             panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -259,15 +219,11 @@
 
         private Button btnADD;
         private Panel panel1;
-        private Panel panel2;
-        private Label label1;
         private TextBox tbNameFilter;
         private FlowLayoutPanel flowPanelStock;
         private Panel panel3;
-        private Label label2;
         private Button btnID;
         private TextBox tbNameFilterFlex;
-        private Label label3;
         private Button btnProductName;
         private Button btnQuant;
         private Button btnPrice;

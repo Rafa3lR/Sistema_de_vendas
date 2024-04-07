@@ -46,7 +46,7 @@
             btnProducts.ImageAlign = ContentAlignment.MiddleLeft;
             btnProducts.Location = new Point(0, 0);
             btnProducts.Name = "btnProducts";
-            btnProducts.Size = new Size(738, 31);
+            btnProducts.Size = new Size(885, 31);
             btnProducts.TabIndex = 10;
             btnProducts.TextAlign = ContentAlignment.MiddleLeft;
             btnProducts.UseVisualStyleBackColor = false;
@@ -72,8 +72,9 @@
             // 
             // lblQuant
             // 
+            lblQuant.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblQuant.AutoSize = true;
-            lblQuant.Location = new Point(585, 7);
+            lblQuant.Location = new Point(727, 7);
             lblQuant.Name = "lblQuant";
             lblQuant.Size = new Size(43, 17);
             lblQuant.TabIndex = 13;
@@ -81,8 +82,9 @@
             // 
             // lblPrice
             // 
+            lblPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblPrice.AutoSize = true;
-            lblPrice.Location = new Point(671, 7);
+            lblPrice.Location = new Point(813, 7);
             lblPrice.Name = "lblPrice";
             lblPrice.Size = new Size(36, 17);
             lblPrice.TabIndex = 14;
@@ -101,7 +103,7 @@
             ForeColor = SystemColors.HighlightText;
             Margin = new Padding(0);
             Name = "Products";
-            Size = new Size(738, 31);
+            Size = new Size(885, 31);
             Load += Products_Load;
             ResumeLayout(false);
             PerformLayout();

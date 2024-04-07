@@ -12,14 +12,17 @@ namespace Sistema_de_vendas
 {
     public partial class CadProducts : Form
     {
+        private int indexCad;
+
         public CadProducts()
         {
             InitializeComponent();
             if (mode == 1)
             {
-                tbPrice.Text = Stock.Price[Products.index].ToString();
-                tbQuant.Text = Stock.QTDE[Products.index].ToString();
-                tbName.Text = Stock.ProductName[Products.index];
+                indexCad = Products.index;
+                tbPrice.Text = Stock.Price[indexCad].ToString();
+                tbQuant.Text = Stock.QTDE[indexCad].ToString();
+                tbName.Text = Stock.ProductName[indexCad];
             }
             else if (mode == 0)
             {
@@ -36,16 +39,18 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                Stock.ID.RemoveAt(Products.index);
-                Stock.ProductName.RemoveAt(Products.index);
-                Stock.QTDE.RemoveAt(Products.index);
-                Stock.Price.RemoveAt(Products.index);
+                Stock.ID.RemoveAt(indexCad);
+                Stock.ProductName.RemoveAt(indexCad);
+                Stock.QTDE.RemoveAt(indexCad);
+                Stock.Price.RemoveAt(indexCad);
+                Stock.openEdit.RemoveAt(indexCad);
 
                 SaveInTXT.WriteTXT();
 
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
+
                 this.Close();
             }
         }
@@ -56,16 +61,17 @@ namespace Sistema_de_vendas
             {
                 if (mode == 0)
                 {
-                    Stock.ID.Add(quantProds);
                     Stock.QTDE.Add(Convert.ToSingle(tbQuant.Text));
                     Stock.Price.Add(Convert.ToSingle(tbPrice.Text));
+                    Stock.ID.Add(quantProds);
                     Stock.ProductName.Add(tbName.Text);
+                    Stock.openEdit.Add(0);
                 }
                 else if (mode == 1)
                 {
-                    Stock.QTDE[Products.index] = Convert.ToSingle(tbQuant.Text);
-                    Stock.Price[Products.index] = Convert.ToSingle(tbPrice.Text);
-                    Stock.ProductName[Products.index] = tbName.Text;
+                    Stock.QTDE[indexCad] = Convert.ToSingle(tbQuant.Text);
+                    Stock.Price[indexCad] = Convert.ToSingle(tbPrice.Text);
+                    Stock.ProductName[indexCad] = tbName.Text;
                 }
 
                 quantProds++;
@@ -75,9 +81,13 @@ namespace Sistema_de_vendas
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
+
                 this.Close();
             }
-            catch { MessageBox.Show("Invalid imput format", "Invalid imput", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch
+            {
+                MessageBox.Show("Invalid imput format", "Invalid imput", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CadProducts_KeyDown(object sender, KeyEventArgs e)
@@ -85,6 +95,15 @@ namespace Sistema_de_vendas
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void CadProducts_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Stock.ID.Count > 0)
+            {
+                Stock.openEdit[indexCad] = 0;
+                SaveInTXT.WriteTXT();
             }
         }
     }
