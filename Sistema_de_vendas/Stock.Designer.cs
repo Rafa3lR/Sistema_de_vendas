@@ -220,7 +220,7 @@
         private Button btnADD;
         private Panel panel1;
         private TextBox tbNameFilter;
-        private FlowLayoutPanel flowPanelStock;
+        public static FlowLayoutPanel flowPanelStock;
         private Panel panel3;
         private Button btnID;
         private TextBox tbNameFilterFlex;

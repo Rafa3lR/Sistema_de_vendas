@@ -105,6 +105,8 @@ namespace Sistema_de_vendas
                 Stock.openEdit[indexCad] = 0;
                 SaveInTXT.WriteTXT();
             }
+
+            Stock.PopulateItens();
         }
     }
 }

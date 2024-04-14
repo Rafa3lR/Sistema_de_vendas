@@ -24,7 +24,7 @@ namespace Sistema_de_vendas
             PopulateItens();
         }
 
-        private string nameFilter = "";
+        public static string nameFilter = "";
         public static int searchType, open = 0, i;
         public static List<int> ID = new List<int>();
         public static List<string> ProductName = new List<string>();
@@ -49,7 +49,7 @@ namespace Sistema_de_vendas
             }
         }
 
-        public void PopulateItens()
+        public static void PopulateItens()
         {
             flowPanelStock.Controls.Clear();
             SaveInTXT.ReadTXT();
