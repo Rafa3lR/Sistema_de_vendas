@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,9 +21,9 @@ namespace Sistema_de_vendas
             if (mode == 1)
             {
                 indexCad = Products.index;
-                tbPrice.Text = Stock.Price[indexCad].ToString();
-                tbQuant.Text = Stock.QTDE[indexCad].ToString();
-                tbName.Text = Stock.ProductName[indexCad];
+                tbPrice.Text = Stock.stockProduct[indexCad].Price.ToString();
+                tbQuant.Text = Stock.stockProduct[indexCad].QTDE.ToString();
+                tbName.Text = Stock.stockProduct[indexCad].ProductName;
             }
             else if (mode == 0)
             {
@@ -39,11 +40,8 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                Stock.ID.RemoveAt(indexCad);
-                Stock.ProductName.RemoveAt(indexCad);
-                Stock.QTDE.RemoveAt(indexCad);
-                Stock.Price.RemoveAt(indexCad);
-                Stock.openEdit.RemoveAt(indexCad);
+                Stock.stockProduct.RemoveAt(indexCad);
+                Stock.flowPanelStock.Controls.Remove(Stock.products[indexCad]);
 
                 SaveInTXT.WriteTXT();
 
@@ -59,35 +57,59 @@ namespace Sistema_de_vendas
         {
             try
             {
-                if (mode == 0)
+                switch (mode)
                 {
-                    Stock.QTDE.Add(Convert.ToSingle(tbQuant.Text));
-                    Stock.Price.Add(Convert.ToSingle(tbPrice.Text));
-                    Stock.ID.Add(quantProds);
-                    Stock.ProductName.Add(tbName.Text);
-                    Stock.openEdit.Add(0);
+                    case 0:
+                        Stock.stockProduct.Add(new StockProduct());
+                        Stock.stockProduct[quantProds - 1].ID = quantProds;
+                        Stock.stockProduct[quantProds - 1].ProductName = tbName.Text;
+                        Stock.stockProduct[quantProds - 1].QTDE = Convert.ToSingle(tbQuant.Text);
+                        Stock.stockProduct[quantProds - 1].Price = Convert.ToSingle(tbPrice.Text);
+                        DrawNewProduct();
+                        SaveInTXT.WriteTXT();
+                        tbName.Text = "";
+                        tbQuant.Text = "";
+                        tbPrice.Text = "";
+                        this.Close();
+                        quantProds++;
+                        break;
+                    case 1:
+                        Stock.stockProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
+                        Stock.stockProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
+                        Stock.stockProduct[indexCad].ProductName = tbName.Text;
+                        SaveInTXT.WriteTXT();
+                        tbName.Text = "";
+                        tbQuant.Text = "";
+                        tbPrice.Text = "";
+                        this.Close();
+                        Stock.FilterAndDrawItens();
+                        break;
                 }
-                else if (mode == 1)
-                {
-                    Stock.QTDE[indexCad] = Convert.ToSingle(tbQuant.Text);
-                    Stock.Price[indexCad] = Convert.ToSingle(tbPrice.Text);
-                    Stock.ProductName[indexCad] = tbName.Text;
-                }
-
-                quantProds++;
-
-                SaveInTXT.WriteTXT();
-
-                tbName.Text = "";
-                tbQuant.Text = "";
-                tbPrice.Text = "";
-
-                this.Close();
             }
             catch
             {
                 MessageBox.Show("Invalid imput format", "Invalid imput", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private static void DrawNewProduct()
+        {
+            int index = Stock.stockProduct.Count() - 1;
+            Stock.products.Add(new Products());
+            Stock.products[index].ID = Stock.stockProduct[index].ID;
+            Stock.products[index].ProductName = Stock.stockProduct[index].ProductName;
+            Stock.products[index].QTDE = Stock.stockProduct[index].QTDE;
+            Stock.products[index].Price = Stock.stockProduct[index].Price;
+            Stock.products[index].Index = quantProds - 1;
+            if ((index % 2) == 0)
+            {
+                Stock.products[index].BackColor = Color.DarkCyan;
+            }
+            else
+            {
+                Stock.products[index].BackColor = Color.LightSeaGreen;
+            }
+            Stock.flowPanelStock.Controls.Add(Stock.products[index]);
         }
 
         private void CadProducts_KeyDown(object sender, KeyEventArgs e)
@@ -100,13 +122,11 @@ namespace Sistema_de_vendas
 
         private void CadProducts_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Stock.ID.Count > 0)
+            if (Stock.stockProduct.Count > 0)
             {
-                Stock.openEdit[indexCad] = 0;
+                Stock.stockProduct[indexCad].openEdit = 0;
                 SaveInTXT.WriteTXT();
             }
-
-            Stock.PopulateItens();
         }
     }
 }

@@ -60,6 +60,9 @@
             lblID.Size = new Size(20, 17);
             lblID.TabIndex = 11;
             lblID.Text = "ID";
+            lblID.Click += lblID_Click;
+            lblID.MouseLeave += lblID_MouseLeave;
+            lblID.MouseMove += lblID_MouseMove;
             // 
             // lblProductName
             // 
@@ -69,6 +72,9 @@
             lblProductName.Size = new Size(92, 17);
             lblProductName.TabIndex = 12;
             lblProductName.Text = "Product Name";
+            lblProductName.Click += lblProductName_Click;
+            lblProductName.MouseLeave += lblProductName_MouseLeave;
+            lblProductName.MouseMove += lblProductName_MouseMove;
             // 
             // lblQuant
             // 
@@ -79,6 +85,9 @@
             lblQuant.Size = new Size(43, 17);
             lblQuant.TabIndex = 13;
             lblQuant.Text = "Quant";
+            lblQuant.Click += lblQuant_Click;
+            lblQuant.MouseLeave += lblQuant_MouseLeave;
+            lblQuant.MouseMove += lblQuant_MouseMove;
             // 
             // lblPrice
             // 
@@ -89,6 +98,9 @@
             lblPrice.Size = new Size(36, 17);
             lblPrice.TabIndex = 14;
             lblPrice.Text = "Price";
+            lblPrice.Click += lblPrice_Click;
+            lblPrice.MouseLeave += lblPrice_MouseLeave;
+            lblPrice.MouseMove += lblPrice_MouseMove;
             // 
             // Products
             // 

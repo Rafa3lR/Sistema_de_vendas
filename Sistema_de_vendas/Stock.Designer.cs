@@ -132,12 +132,13 @@
             btnPrice.FlatStyle = FlatStyle.Flat;
             btnPrice.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnPrice.ForeColor = SystemColors.HighlightText;
-            btnPrice.Location = new Point(787, 0);
+            btnPrice.Location = new Point(805, 0);
             btnPrice.Margin = new Padding(0);
             btnPrice.Name = "btnPrice";
-            btnPrice.Size = new Size(83, 33);
+            btnPrice.Size = new Size(98, 33);
             btnPrice.TabIndex = 7;
             btnPrice.Text = "Price";
+            btnPrice.TextAlign = ContentAlignment.MiddleLeft;
             btnPrice.UseVisualStyleBackColor = false;
             btnPrice.Click += btnPrice_Click;
             // 
@@ -149,10 +150,10 @@
             btnQuant.FlatStyle = FlatStyle.Flat;
             btnQuant.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnQuant.ForeColor = SystemColors.HighlightText;
-            btnQuant.Location = new Point(704, 0);
+            btnQuant.Location = new Point(687, -1);
             btnQuant.Margin = new Padding(0);
             btnQuant.Name = "btnQuant";
-            btnQuant.Size = new Size(83, 33);
+            btnQuant.Size = new Size(118, 33);
             btnQuant.TabIndex = 6;
             btnQuant.Text = "Quant";
             btnQuant.UseVisualStyleBackColor = false;
@@ -169,7 +170,7 @@
             btnProductName.Location = new Point(47, -2);
             btnProductName.Margin = new Padding(0);
             btnProductName.Name = "btnProductName";
-            btnProductName.Size = new Size(657, 33);
+            btnProductName.Size = new Size(640, 33);
             btnProductName.TabIndex = 5;
             btnProductName.Text = "Product Name";
             btnProductName.TextAlign = ContentAlignment.MiddleLeft;
@@ -220,12 +221,12 @@
         private Button btnADD;
         private Panel panel1;
         private TextBox tbNameFilter;
-        public static FlowLayoutPanel flowPanelStock;
         private Panel panel3;
         private Button btnID;
         private TextBox tbNameFilterFlex;
         private Button btnProductName;
         private Button btnQuant;
         private Button btnPrice;
+        public static FlowLayoutPanel flowPanelStock;
     }
 }

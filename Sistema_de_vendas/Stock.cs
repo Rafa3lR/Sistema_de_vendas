@@ -21,17 +21,18 @@ namespace Sistema_de_vendas
         {
             //Create random products for debugging
             //CriarProdutos();
-            PopulateItens();
+            FilterAndDrawItens();
         }
 
-        public static string nameFilter = "";
+        public static string nameFilter = "", orderBy = "id";
         public static int searchType, open = 0, i;
-        public static List<int> ID = new List<int>();
+        /*public static List<int> ID = new List<int>();
         public static List<string> ProductName = new List<string>();
         public static List<float> QTDE = new List<float>();
         public static List<float> Price = new List<float>();
-        public static List<int> openEdit = new List<int>();
+        public static List<int> openEdit = new List<int>();*/
         public static List<Products> products = new List<Products>();
+        public static List<StockProduct> stockProduct = new List<StockProduct>();
 
         //Create random products for debugging
         private void CriarProdutos()
@@ -40,33 +41,50 @@ namespace Sistema_de_vendas
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    ID.Add(i + 1);
-                    ProductName.Add($"Produto {i + 1}");
-                    QTDE.Add(i + 1);
-                    Price.Add(Convert.ToSingle(i + 1));
+                    stockProduct.Add(new StockProduct());
+                    stockProduct[i].ID = i + 1;
+                    stockProduct[i].ProductName = $"Produto {i + 1}";
+                    stockProduct[i].QTDE = i + 1;
+                    stockProduct[i].Price = Convert.ToSingle(i + 1);
                 }
                 open = 1;
             }
         }
 
-        public static void PopulateItens()
+        public static void FilterAndDrawItens()
         {
             flowPanelStock.Controls.Clear();
             SaveInTXT.ReadTXT();
 
+            if (orderBy == "id")
+            {
+                OrderByID();
+            }
+            else if (orderBy == "name")
+            {
+                OrderByName();
+            }
+            else if (orderBy == "quant")
+            {
+                OrderByQuant();
+            }
+            else if (orderBy == "price")
+            {
+                orderByPrice();
+            }
+
             int count = 0;
-            i = 0;
             try
             {
-                Main.mainProgressBar.Maximum = ID.Count();
+                Main.mainProgressBar.Maximum = stockProduct.Count();
 
-                foreach (int x in ID)
+                for (int i = 0; i < stockProduct.Count(); i++)
                 {
                     products.Add(new Products());
-                    products[i].ID = x;
-                    products[i].ProductName = ProductName[i];
-                    products[i].QTDE = QTDE[i];
-                    products[i].Price = Price[i];
+                    products[i].ID = stockProduct[i].ID;
+                    products[i].ProductName = stockProduct[i].ProductName;
+                    products[i].QTDE = stockProduct[i].QTDE;
+                    products[i].Price = stockProduct[i].Price;
                     products[i].Index = i;
 
                     if (nameFilter != "")
@@ -111,7 +129,6 @@ namespace Sistema_de_vendas
                         flowPanelStock.Controls.Add(products[i]);
                     }
 
-                    i++;
                     Main.mainProgressBar.Value = i;
                 }
 
@@ -126,7 +143,7 @@ namespace Sistema_de_vendas
             {
                 searchType = 1;
                 nameFilter = tbNameFilter.Text;
-                PopulateItens();
+                FilterAndDrawItens();
             }
         }
 
@@ -136,7 +153,7 @@ namespace Sistema_de_vendas
             {
                 searchType = 0;
                 nameFilter = tbNameFilterFlex.Text;
-                PopulateItens();
+                FilterAndDrawItens();
             }
         }
 
@@ -205,142 +222,53 @@ namespace Sistema_de_vendas
 
         private void btnID_Click(object sender, EventArgs e)
         {
-            /*List<int> idTemp = new List<int>();
-            List<string> nameTemp = new List<string>();
-            List<int> qtdeTemp = new List<int>();
-            List<float> priceTemp = new List<float>();
+            orderBy = "id";
+            FilterAndDrawItens();
+        }
 
-            foreach (int x in ID)
-            {
-                idTemp.Add(x);
-            }
-
-            idTemp.Sort();
-
-            foreach (int x in idTemp)
-            {
-                int index = ID.IndexOf(x);
-                nameTemp.Add(ProductName[index]);
-                qtdeTemp.Add(QTDE[index]);
-                priceTemp.Add(Price[index]);
-            }
-
-            int i = 0;
-            foreach (int x in idTemp)
-            {
-                ID[i] = x;
-                ProductName[i] = nameTemp[i];
-                QTDE[i] = qtdeTemp[i];
-                Price[i] = priceTemp[i];
-                i++;
-            }*/
-
-            PopulateItens();
+        private static void OrderByID()
+        {
+            stockProduct = stockProduct.OrderBy(w => w.ID).ToList();
         }
 
         private void btnProductName_Click(object sender, EventArgs e)
         {
-            /*List<int> idTemp = new List<int>();
-            List<string> nameTemp = new List<string>();
-            List<int> qtdeTemp = new List<int>();
-            List<float> priceTemp = new List<float>();
+            orderBy = "name";
+            FilterAndDrawItens();
+        }
 
-            foreach (string x in ProductName)
-            {
-                nameTemp.Add(x);
-            }
-
-            nameTemp.Sort();
-
-            foreach (string x in nameTemp)
-            {
-                int index = ProductName.IndexOf(x);
-                idTemp.Add(ID[index]);
-                qtdeTemp.Add(QTDE[index]);
-                priceTemp.Add(Price[index]);
-            }
-
-            int i = 0;
-            foreach (string x in nameTemp)
-            {
-                ID[i] = idTemp[i];
-                ProductName[i] = x;
-                QTDE[i] = qtdeTemp[i];
-                Price[i] = priceTemp[i];
-                i++;
-            }*/
-
-            PopulateItens();
+        private static void OrderByName()
+        {
+            stockProduct = stockProduct.OrderBy(w => w.ProductName).ToList();
         }
 
         private void btnQuant_Click(object sender, EventArgs e)
         {
-            /*List<int> idTemp = new List<int>();
-            List<string> nameTemp = new List<string>();
-            List<int> qtdeTemp = new List<int>();
-            List<float> priceTemp = new List<float>();
+            orderBy = "quant";
+            FilterAndDrawItens();
+        }
 
-            foreach (int x in QTDE)
-            {
-                qtdeTemp.Add(x);
-            }
-
-            qtdeTemp.Sort();
-
-            foreach (int x in qtdeTemp)
-            {
-                int index = QTDE.IndexOf(x);
-                nameTemp.Add(ProductName[index]);
-                idTemp.Add(ID[index]);
-                priceTemp.Add(Price[index]);
-            }
-
-            int i = 0;
-            foreach (int x in qtdeTemp)
-            {
-                ID[i] = idTemp[i];
-                ProductName[i] = nameTemp[i];
-                QTDE[i] = x;
-                Price[i] = priceTemp[i];
-                i++;
-            }*/
-
-            PopulateItens();
+        private static void OrderByQuant()
+        {
+            stockProduct = stockProduct.OrderBy(w => w.QTDE).ToList();
         }
 
         private void btnPrice_Click(object sender, EventArgs e)
         {
-            /*List<int> idTemp = new List<int>();
-            List<string> nameTemp = new List<string>();
-            List<int> qtdeTemp = new List<int>();
-            List<float> priceTemp = new List<float>();
-
-            foreach (float x in Price)
-            {
-                priceTemp.Add(x);
-            }
-
-            priceTemp.Sort();
-
-            foreach (float x in priceTemp)
-            {
-                int index = Price.IndexOf(Convert.ToInt32(x));
-                nameTemp.Add(ProductName[index]);
-                idTemp.Add(ID[index]);
-                qtdeTemp.Add(QTDE[index]);
-            }
-
-            int i = 0;
-            foreach (float x in priceTemp)
-            {
-                ID[i] = idTemp[i];
-                ProductName[i] = nameTemp[i];
-                QTDE[i] = qtdeTemp[i];
-                Price[i] = x;
-                i++;
-            }*/
-
-            PopulateItens();
+            orderBy = "price";
+            FilterAndDrawItens();
         }
+
+        private static void orderByPrice()
+        {
+            stockProduct = stockProduct.OrderBy(w => w.Price).ToList();
+        }
+    }
+
+    public class StockProduct
+    {
+        public int ID, openEdit;
+        public string ProductName;
+        public float QTDE, Price;
     }
 }

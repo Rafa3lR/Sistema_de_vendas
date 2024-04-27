@@ -26,9 +26,9 @@ namespace Sistema_de_vendas
             try
             {
                 index = _index;
-                if (Stock.openEdit[index] == 0)
+                if (Stock.stockProduct[index].openEdit == 0)
                 {
-                    Stock.openEdit[index] = 1;
+                    Stock.stockProduct[index].openEdit = 1;
                     SaveInTXT.WriteTXT();
                     CadProducts.mode = 1;
                     CadProducts cadProducts = new CadProducts();
@@ -38,7 +38,8 @@ namespace Sistema_de_vendas
                 {
                     MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            } catch { }
+            }
+            catch { }
         }
 
         private void Products_Load(object sender, EventArgs e)
@@ -51,6 +52,130 @@ namespace Sistema_de_vendas
             lblQuant.BackColor = Color.Transparent;
             lblPrice.Parent = btnProducts;
             lblPrice.BackColor = Color.Transparent;
+        }
+
+        private void lblID_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                index = _index;
+                if (Stock.stockProduct[index].openEdit == 0)
+                {
+                    Stock.stockProduct[index].openEdit = 1;
+                    SaveInTXT.WriteTXT();
+                    CadProducts.mode = 1;
+                    CadProducts cadProducts = new CadProducts();
+                    cadProducts.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch { }
+        }
+
+        private void lblProductName_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                index = _index;
+                if (Stock.stockProduct[index].openEdit == 0)
+                {
+                    Stock.stockProduct[index].openEdit = 1;
+                    SaveInTXT.WriteTXT();
+                    CadProducts.mode = 1;
+                    CadProducts cadProducts = new CadProducts();
+                    cadProducts.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch { }
+        }
+
+        private void lblQuant_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                index = _index;
+                if (Stock.stockProduct[index].openEdit == 0)
+                {
+                    Stock.stockProduct[index].openEdit = 1;
+                    SaveInTXT.WriteTXT();
+                    CadProducts.mode = 1;
+                    CadProducts cadProducts = new CadProducts();
+                    cadProducts.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch { }
+        }
+
+        private void lblPrice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                index = _index;
+                if (Stock.stockProduct[index].openEdit== 0)
+                {
+                    Stock.stockProduct[index].openEdit= 1;
+                    SaveInTXT.WriteTXT();
+                    CadProducts.mode = 1;
+                    CadProducts cadProducts = new CadProducts();
+                    cadProducts.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch { }
+        }
+
+        private void lblID_MouseMove(object sender, MouseEventArgs e)
+        {
+            btnProducts.BackColor = Color.DimGray;
+        }
+
+        private void lblID_MouseLeave(object sender, EventArgs e)
+        {
+            btnProducts.BackColor = Color.Transparent;
+        }
+
+        private void lblProductName_MouseMove(object sender, MouseEventArgs e)
+        {
+            btnProducts.BackColor = Color.DimGray;
+        }
+
+        private void lblProductName_MouseLeave(object sender, EventArgs e)
+        {
+            btnProducts.BackColor = Color.Transparent;
+        }
+
+        private void lblQuant_MouseMove(object sender, MouseEventArgs e)
+        {
+            btnProducts.BackColor = Color.DimGray;
+        }
+
+        private void lblQuant_MouseLeave(object sender, EventArgs e)
+        {
+            btnProducts.BackColor = Color.Transparent;
+        }
+
+        private void lblPrice_MouseMove(object sender, MouseEventArgs e)
+        {
+            btnProducts.BackColor = Color.DimGray;
+        }
+
+        private void lblPrice_MouseLeave(object sender, EventArgs e)
+        {
+            btnProducts.BackColor = Color.Transparent;
         }
 
         public int Index

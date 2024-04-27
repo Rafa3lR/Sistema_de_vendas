@@ -63,5 +63,13 @@ namespace Sistema_de_vendas
             e.Cancel = true;
             this.Hide();
         }
+
+        private void Sales_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

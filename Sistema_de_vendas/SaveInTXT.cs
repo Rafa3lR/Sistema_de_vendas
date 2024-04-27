@@ -10,14 +10,10 @@ namespace Sistema_de_vendas
     {
         public static void ReadTXT()
         {
-            int max = Stock.ID.Count();
+            int max = Stock.stockProduct.Count();
             for (int i = 0; i < max; i++)
             {
-                Stock.ID.RemoveAt(0);
-                Stock.ProductName.RemoveAt(0);
-                Stock.QTDE.RemoveAt(0);
-                Stock.Price.RemoveAt(0);
-                Stock.openEdit.RemoveAt(0);
+                Stock.stockProduct.RemoveAt(0);
             }
 
             StreamWriter quantProd1 = new StreamWriter("quantProd.txt", true);
@@ -36,10 +32,12 @@ namespace Sistema_de_vendas
             using (StreamReader sr = new StreamReader("ID.txt"))
             {
                 string ID;
+                int i = 0;
                 while ((ID = sr.ReadLine()) != null)
                 {
-                    Stock.ID.Add(Convert.ToInt32(ID));
-                    Stock.openEdit.Add(0);
+                    Stock.stockProduct.Add(new StockProduct());
+                    Stock.stockProduct[i].ID = Convert.ToInt32(ID);
+                    i++;
                 }
             }
 
@@ -48,9 +46,11 @@ namespace Sistema_de_vendas
             using (StreamReader sr = new StreamReader("ProductName.txt"))
             {
                 string ProductName;
+                int i = 0;
                 while ((ProductName = sr.ReadLine()) != null)
                 {
-                    Stock.ProductName.Add(ProductName);
+                    Stock.stockProduct[i].ProductName = ProductName;
+                    i++;
                 }
             }
 
@@ -59,9 +59,11 @@ namespace Sistema_de_vendas
             using (StreamReader sr = new StreamReader("QTDE.txt"))
             {
                 string QTDE;
+                int i = 0;
                 while ((QTDE = sr.ReadLine()) != null)
                 {
-                    Stock.QTDE.Add(Convert.ToSingle(QTDE));
+                    Stock.stockProduct[i].QTDE = Convert.ToSingle(QTDE);
+                    i++;
                 }
             }
 
@@ -70,9 +72,11 @@ namespace Sistema_de_vendas
             using (StreamReader sr = new StreamReader("Price.txt"))
             {
                 string Price;
+                int i = 0;
                 while ((Price = sr.ReadLine()) != null)
                 {
-                    Stock.Price.Add(Convert.ToSingle(Price));
+                    Stock.stockProduct[i].Price = Convert.ToSingle(Price);
+                    i++;
                 }
             }
 
@@ -81,16 +85,17 @@ namespace Sistema_de_vendas
             using (StreamReader sr = new StreamReader("OpenEdit.txt"))
             {
                 string openEdit;
+                int i = 0;
                 while ((openEdit = sr.ReadLine()) != null)
                 {
-                    Stock.openEdit.Add(Convert.ToInt32(openEdit));
+                    Stock.stockProduct[i].openEdit = Convert.ToInt32(openEdit);
+                    i++;
                 }
             }
         }
 
         public static void WriteTXT()
         {
-            int index = 0;
             StreamWriter ID1 = new StreamWriter("ID.txt", false);
             ID1.Close();
             StreamWriter ProductName1 = new StreamWriter("ProductName.txt", false);
@@ -109,34 +114,32 @@ namespace Sistema_de_vendas
                 sw.WriteLine(CadProducts.quantProds);
             }
 
-            foreach (int x in Stock.ID)
+            for (int i = 0; i < Stock.stockProduct.Count(); i++)
             {
                 using (StreamWriter sw = new StreamWriter("ID.txt", true))
                 {
-                    sw.WriteLine(x);
+                    sw.WriteLine(Stock.stockProduct[i].ID);
                 }
                 
                 using (StreamWriter sw = new StreamWriter("ProductName.txt", true))
                 {
-                    sw.WriteLine(Stock.ProductName[index]);
+                    sw.WriteLine(Stock.stockProduct[i].ProductName);
                 }
                 
                 using (StreamWriter sw = new StreamWriter("QTDE.txt", true))
                 {
-                    sw.WriteLine(Stock.QTDE[index]);
+                    sw.WriteLine(Stock.stockProduct[i].QTDE);
                 }
                 
                 using (StreamWriter sw = new StreamWriter("Price.txt", true))
                 {
-                    sw.WriteLine(Stock.Price[index]);
+                    sw.WriteLine(Stock.stockProduct[i].Price);
                 }
 
                 using (StreamWriter sw = new StreamWriter("OpenEdit.txt", true))
                 {
-                    sw.WriteLine(Stock.openEdit[index]);
+                    sw.WriteLine(Stock.stockProduct[i].openEdit);
                 }
-
-                index++;
             }
         }
     }
