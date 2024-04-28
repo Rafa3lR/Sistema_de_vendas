@@ -79,19 +79,6 @@ namespace Sistema_de_vendas
                     i++;
                 }
             }
-
-            StreamWriter openEdit1 = new StreamWriter("OpenEdit.txt", true);
-            openEdit1.Close();
-            using (StreamReader sr = new StreamReader("OpenEdit.txt"))
-            {
-                string openEdit;
-                int i = 0;
-                while ((openEdit = sr.ReadLine()) != null)
-                {
-                    Stock.stockProduct[i].openEdit = Convert.ToInt32(openEdit);
-                    i++;
-                }
-            }
         }
 
         public static void WriteTXT()
@@ -134,11 +121,6 @@ namespace Sistema_de_vendas
                 using (StreamWriter sw = new StreamWriter("Price.txt", true))
                 {
                     sw.WriteLine(Stock.stockProduct[i].Price);
-                }
-
-                using (StreamWriter sw = new StreamWriter("OpenEdit.txt", true))
-                {
-                    sw.WriteLine(Stock.stockProduct[i].openEdit);
                 }
             }
         }

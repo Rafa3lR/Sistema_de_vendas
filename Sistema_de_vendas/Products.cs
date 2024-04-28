@@ -26,18 +26,10 @@ namespace Sistema_de_vendas
             try
             {
                 index = _index;
-                if (Stock.stockProduct[index].openEdit == 0)
-                {
-                    Stock.stockProduct[index].openEdit = 1;
-                    SaveInTXT.WriteTXT();
-                    CadProducts.mode = 1;
-                    CadProducts cadProducts = new CadProducts();
-                    cadProducts.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                SaveInTXT.WriteTXT();
+                CadProducts.mode = 1;
+                CadProducts cadProducts = new CadProducts();
+                cadProducts.Show();
             }
             catch { }
         }
@@ -59,18 +51,10 @@ namespace Sistema_de_vendas
             try
             {
                 index = _index;
-                if (Stock.stockProduct[index].openEdit == 0)
-                {
-                    Stock.stockProduct[index].openEdit = 1;
-                    SaveInTXT.WriteTXT();
-                    CadProducts.mode = 1;
-                    CadProducts cadProducts = new CadProducts();
-                    cadProducts.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                SaveInTXT.WriteTXT();
+                CadProducts.mode = 1;
+                CadProducts cadProducts = new CadProducts();
+                cadProducts.Show();
             }
             catch { }
         }
@@ -80,18 +64,10 @@ namespace Sistema_de_vendas
             try
             {
                 index = _index;
-                if (Stock.stockProduct[index].openEdit == 0)
-                {
-                    Stock.stockProduct[index].openEdit = 1;
-                    SaveInTXT.WriteTXT();
-                    CadProducts.mode = 1;
-                    CadProducts cadProducts = new CadProducts();
-                    cadProducts.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                SaveInTXT.WriteTXT();
+                CadProducts.mode = 1;
+                CadProducts cadProducts = new CadProducts();
+                cadProducts.Show();
             }
             catch { }
         }
@@ -101,18 +77,10 @@ namespace Sistema_de_vendas
             try
             {
                 index = _index;
-                if (Stock.stockProduct[index].openEdit == 0)
-                {
-                    Stock.stockProduct[index].openEdit = 1;
-                    SaveInTXT.WriteTXT();
-                    CadProducts.mode = 1;
-                    CadProducts cadProducts = new CadProducts();
-                    cadProducts.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                SaveInTXT.WriteTXT();
+                CadProducts.mode = 1;
+                CadProducts cadProducts = new CadProducts();
+                cadProducts.Show();
             }
             catch { }
         }
@@ -122,18 +90,10 @@ namespace Sistema_de_vendas
             try
             {
                 index = _index;
-                if (Stock.stockProduct[index].openEdit== 0)
-                {
-                    Stock.stockProduct[index].openEdit= 1;
-                    SaveInTXT.WriteTXT();
-                    CadProducts.mode = 1;
-                    CadProducts cadProducts = new CadProducts();
-                    cadProducts.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Product already opened to edit!", "Already opened!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                SaveInTXT.WriteTXT();
+                CadProducts.mode = 1;
+                CadProducts cadProducts = new CadProducts();
+                cadProducts.Show();
             }
             catch { }
         }

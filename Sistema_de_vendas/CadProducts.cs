@@ -40,7 +40,7 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                //Stock.flowPanelStock.Controls.Remove(Stock.products[indexCad]);
+                //Stock.flowPanelStock.Controls.RemoveAt(indexCad);
                 Stock.products.RemoveAt(indexCad);
                 Stock.stockProduct.RemoveAt(indexCad);
                 
@@ -49,7 +49,6 @@ namespace Sistema_de_vendas
                 tbPrice.Text = "";
 
                 SaveInTXT.WriteTXT();
-                SaveInTXT.ReadTXT();
                 Stock.FilterAndDrawItens();
                 this.Close();
             }
@@ -68,14 +67,13 @@ namespace Sistema_de_vendas
                         Stock.stockProduct[i].ProductName = tbName.Text;
                         Stock.stockProduct[i].QTDE = Convert.ToSingle(tbQuant.Text);
                         Stock.stockProduct[i].Price = Convert.ToSingle(tbPrice.Text);
-                        //DrawNewProduct();
                         quantProds++;
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
                         SaveInTXT.WriteTXT();
-                        SaveInTXT.ReadTXT();
-                        Stock.FilterAndDrawItens();
+                        DrawNewProduct();
+                        //Stock.FilterAndDrawItens();
                         this.Close();
                         break;
                     case 1:
@@ -86,7 +84,6 @@ namespace Sistema_de_vendas
                         tbQuant.Text = "";
                         tbPrice.Text = "";
                         SaveInTXT.WriteTXT();
-                        SaveInTXT.ReadTXT();
                         Stock.FilterAndDrawItens();
                         this.Close();
                         break;
@@ -123,14 +120,6 @@ namespace Sistema_de_vendas
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
-            }
-        }
-
-        private void CadProducts_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Stock.stockProduct.Count > 0)
-            {
-                Stock.stockProduct[indexCad].openEdit = 0;
             }
         }
     }

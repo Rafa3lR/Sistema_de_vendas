@@ -34,7 +34,7 @@ namespace Sistema_de_vendas
         {
             if (open == 0)
             {
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 1000; i++)
                 {
                     stockProduct.Add(new StockProduct());
                     stockProduct[i].ID = i + 1;
@@ -262,7 +262,7 @@ namespace Sistema_de_vendas
 
     public class StockProduct
     {
-        public int ID, openEdit;
+        public int ID;
         public string ProductName;
         public float QTDE, Price;
     }
