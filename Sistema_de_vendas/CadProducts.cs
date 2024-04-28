@@ -40,13 +40,17 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                Stock.flowPanelStock.Controls.Remove(Stock.products[indexCad]);
+                //Stock.flowPanelStock.Controls.Remove(Stock.products[indexCad]);
+                Stock.products.RemoveAt(indexCad);
                 Stock.stockProduct.RemoveAt(indexCad);
-
+                
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
 
+                SaveInTXT.WriteTXT();
+                SaveInTXT.ReadTXT();
+                Stock.FilterAndDrawItens();
                 this.Close();
             }
         }
@@ -58,17 +62,20 @@ namespace Sistema_de_vendas
                 switch (mode)
                 {
                     case 0:
-                        int i = Stock.stockProduct.Count();
                         Stock.stockProduct.Add(new StockProduct());
+                        int i = Stock.stockProduct.Count() - 1;
                         Stock.stockProduct[i].ID = quantProds;
                         Stock.stockProduct[i].ProductName = tbName.Text;
                         Stock.stockProduct[i].QTDE = Convert.ToSingle(tbQuant.Text);
                         Stock.stockProduct[i].Price = Convert.ToSingle(tbPrice.Text);
-                        DrawNewProduct();
+                        //DrawNewProduct();
                         quantProds++;
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
+                        SaveInTXT.WriteTXT();
+                        SaveInTXT.ReadTXT();
+                        Stock.FilterAndDrawItens();
                         this.Close();
                         break;
                     case 1:
@@ -78,8 +85,10 @@ namespace Sistema_de_vendas
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
-                        this.Close();
+                        SaveInTXT.WriteTXT();
+                        SaveInTXT.ReadTXT();
                         Stock.FilterAndDrawItens();
+                        this.Close();
                         break;
                 }
             }
@@ -90,14 +99,14 @@ namespace Sistema_de_vendas
         }
 
         private static void DrawNewProduct()
-        {
-            int index = Stock.stockProduct.Count() - 1;
+        { 
             Stock.products.Add(new Products());
+            int index = Stock.stockProduct.Count() - 1;
             Stock.products[index].ID = Stock.stockProduct[index].ID;
             Stock.products[index].ProductName = Stock.stockProduct[index].ProductName;
             Stock.products[index].QTDE = Stock.stockProduct[index].QTDE;
             Stock.products[index].Price = Stock.stockProduct[index].Price;
-            //Stock.products[index].Index = quantProds - 1;
+            Stock.products[index].Index = index;
             if ((index % 2) == 0)
             {
                 Stock.products[index].BackColor = Color.DarkCyan;
@@ -122,8 +131,6 @@ namespace Sistema_de_vendas
             if (Stock.stockProduct.Count > 0)
             {
                 Stock.stockProduct[indexCad].openEdit = 0;
-                SaveInTXT.WriteTXT();
-                SaveInTXT.ReadTXT();
             }
         }
     }
