@@ -40,10 +40,8 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                Stock.stockProduct.RemoveAt(indexCad);
                 Stock.flowPanelStock.Controls.Remove(Stock.products[indexCad]);
-
-                SaveInTXT.WriteTXT();
+                Stock.stockProduct.RemoveAt(indexCad);
 
                 tbName.Text = "";
                 tbQuant.Text = "";
@@ -60,24 +58,23 @@ namespace Sistema_de_vendas
                 switch (mode)
                 {
                     case 0:
+                        int i = Stock.stockProduct.Count();
                         Stock.stockProduct.Add(new StockProduct());
-                        Stock.stockProduct[quantProds - 1].ID = quantProds;
-                        Stock.stockProduct[quantProds - 1].ProductName = tbName.Text;
-                        Stock.stockProduct[quantProds - 1].QTDE = Convert.ToSingle(tbQuant.Text);
-                        Stock.stockProduct[quantProds - 1].Price = Convert.ToSingle(tbPrice.Text);
+                        Stock.stockProduct[i].ID = quantProds;
+                        Stock.stockProduct[i].ProductName = tbName.Text;
+                        Stock.stockProduct[i].QTDE = Convert.ToSingle(tbQuant.Text);
+                        Stock.stockProduct[i].Price = Convert.ToSingle(tbPrice.Text);
                         DrawNewProduct();
-                        SaveInTXT.WriteTXT();
+                        quantProds++;
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
                         this.Close();
-                        quantProds++;
                         break;
                     case 1:
                         Stock.stockProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
                         Stock.stockProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
                         Stock.stockProduct[indexCad].ProductName = tbName.Text;
-                        SaveInTXT.WriteTXT();
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
@@ -100,7 +97,7 @@ namespace Sistema_de_vendas
             Stock.products[index].ProductName = Stock.stockProduct[index].ProductName;
             Stock.products[index].QTDE = Stock.stockProduct[index].QTDE;
             Stock.products[index].Price = Stock.stockProduct[index].Price;
-            Stock.products[index].Index = quantProds - 1;
+            //Stock.products[index].Index = quantProds - 1;
             if ((index % 2) == 0)
             {
                 Stock.products[index].BackColor = Color.DarkCyan;
@@ -126,6 +123,7 @@ namespace Sistema_de_vendas
             {
                 Stock.stockProduct[indexCad].openEdit = 0;
                 SaveInTXT.WriteTXT();
+                SaveInTXT.ReadTXT();
             }
         }
     }

@@ -26,11 +26,6 @@ namespace Sistema_de_vendas
 
         public static string nameFilter = "", orderBy = "id";
         public static int searchType, open = 0, i;
-        /*public static List<int> ID = new List<int>();
-        public static List<string> ProductName = new List<string>();
-        public static List<float> QTDE = new List<float>();
-        public static List<float> Price = new List<float>();
-        public static List<int> openEdit = new List<int>();*/
         public static List<Products> products = new List<Products>();
         public static List<StockProduct> stockProduct = new List<StockProduct>();
 
