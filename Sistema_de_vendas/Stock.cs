@@ -80,7 +80,6 @@ namespace Sistema_de_vendas
                     products[i].ProductName = stockProduct[i].ProductName;
                     products[i].QTDE = stockProduct[i].QTDE;
                     products[i].Price = stockProduct[i].Price;
-                    products[i].Index = i;
 
                     if (nameFilter != "")
                     {

@@ -40,7 +40,6 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                //Stock.flowPanelStock.Controls.RemoveAt(indexCad);
                 Stock.products.RemoveAt(indexCad);
                 Stock.stockProduct.RemoveAt(indexCad);
                 
@@ -49,7 +48,7 @@ namespace Sistema_de_vendas
                 tbPrice.Text = "";
 
                 SaveInTXT.WriteTXT();
-                Stock.FilterAndDrawItens();
+                Stock.flowPanelStock.Controls.RemoveAt(indexCad);
                 this.Close();
             }
         }
@@ -73,7 +72,6 @@ namespace Sistema_de_vendas
                         tbPrice.Text = "";
                         SaveInTXT.WriteTXT();
                         DrawNewProduct();
-                        //Stock.FilterAndDrawItens();
                         this.Close();
                         break;
                     case 1:
@@ -103,7 +101,6 @@ namespace Sistema_de_vendas
             Stock.products[index].ProductName = Stock.stockProduct[index].ProductName;
             Stock.products[index].QTDE = Stock.stockProduct[index].QTDE;
             Stock.products[index].Price = Stock.stockProduct[index].Price;
-            Stock.products[index].Index = index;
             if ((index % 2) == 0)
             {
                 Stock.products[index].BackColor = Color.DarkCyan;

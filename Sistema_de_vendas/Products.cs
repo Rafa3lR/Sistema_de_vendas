@@ -18,14 +18,13 @@ namespace Sistema_de_vendas
         }
 
         private string _productname;
-        private int _index;
         public static int index;
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
             try
             {
-                index = _index;
+                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 SaveInTXT.WriteTXT();
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
@@ -50,7 +49,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = _index;
+                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 SaveInTXT.WriteTXT();
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
@@ -63,7 +62,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = _index;
+                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 SaveInTXT.WriteTXT();
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
@@ -76,7 +75,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = _index;
+                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 SaveInTXT.WriteTXT();
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
@@ -89,7 +88,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = _index;
+                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 SaveInTXT.WriteTXT();
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
@@ -138,10 +137,6 @@ namespace Sistema_de_vendas
             btnProducts.BackColor = Color.Transparent;
         }
 
-        public int Index
-        {
-            set { _index = value; }
-        }
         public int ID
         {
             set { lblID.Text = value.ToString(); }
