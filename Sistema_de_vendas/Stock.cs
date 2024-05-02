@@ -83,7 +83,7 @@ namespace Sistema_de_vendas
 
                     if (nameFilter != "")
                     {
-                        if (searchType == 0 && products[i].ProductName.Contains(nameFilter))
+                        if (searchType == 0 && products[i].ProductName.ToLower().Contains(nameFilter.ToLower()))
                         {
                             if ((count % 2) == 0)
                             {
@@ -96,7 +96,7 @@ namespace Sistema_de_vendas
                             count++;
                             flowPanelStock.Controls.Add(products[i]);
                         }
-                        if (searchType == 1 && products[i].ProductName.StartsWith(nameFilter))
+                        if (searchType == 1 && products[i].ProductName.ToLower().StartsWith(nameFilter.ToLower()))
                         {
                             if ((count % 2) == 0)
                             {
