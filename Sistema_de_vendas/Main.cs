@@ -5,7 +5,6 @@ namespace Sistema_de_vendas
         public Main()
         {
             InitializeComponent();
-            SaveInTXT.ReadTXT();
         }
 
         private Stock stock = new Stock();
@@ -19,6 +18,12 @@ namespace Sistema_de_vendas
         private void btnStock_Click(object sender, EventArgs e)
         {
             stock.Show();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            bllProduct bllProduct = new bllProduct();
+            bllProduct.selecionar();
         }
     }
 }

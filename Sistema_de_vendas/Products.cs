@@ -17,22 +17,6 @@ namespace Sistema_de_vendas
             InitializeComponent();
         }
 
-        private string _productname;
-        public static int index;
-
-        private void btnProducts_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
-                SaveInTXT.WriteTXT();
-                CadProducts.mode = 1;
-                CadProducts cadProducts = new CadProducts();
-                cadProducts.Show();
-            }
-            catch { }
-        }
-
         private void Products_Load(object sender, EventArgs e)
         {
             lblID.Parent = btnProducts;
@@ -45,12 +29,26 @@ namespace Sistema_de_vendas
             lblPrice.BackColor = Color.Transparent;
         }
 
+        private string _productname;
+        public static int index;
+
+        private void btnProducts_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                CadProducts.mode = 1;
+                CadProducts cadProducts = new CadProducts();
+                cadProducts.Show();
+            }
+            catch { }
+        }
+
         private void lblID_Click(object sender, EventArgs e)
         {
             try
             {
-                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
-                SaveInTXT.WriteTXT();
+                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -62,8 +60,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
-                SaveInTXT.WriteTXT();
+                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -75,8 +72,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
-                SaveInTXT.WriteTXT();
+                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -88,8 +84,7 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.stockProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
-                SaveInTXT.WriteTXT();
+                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -155,7 +150,7 @@ namespace Sistema_de_vendas
 
         public float Price
         {
-            set { lblPrice.Text = value.ToString(); }
+            set { lblPrice.Text = "$" + value.ToString(); }
         }
     }
 }

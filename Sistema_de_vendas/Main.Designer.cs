@@ -140,6 +140,7 @@
             Name = "Main";
             Text = "Melhor sistema do MUNDO";
             WindowState = FormWindowState.Maximized;
+            Load += Main_Load;
             panel1.ResumeLayout(false);
             mainStatusStrip.ResumeLayout(false);
             mainStatusStrip.PerformLayout();

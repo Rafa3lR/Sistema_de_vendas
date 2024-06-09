@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,77 +16,82 @@ namespace Sistema_de_vendas
         public Stock()
         {
             InitializeComponent();
+            flowPanelStock.MouseWheel += new MouseEventHandler(OnMouseWheel);
+            flowPanelStock.Scroll += new ScrollEventHandler(OnScroll);
+            flowPanelStock.VerticalScroll.Visible = false;
         }
 
         private void Stock_Load(object sender, EventArgs e)
         {
-            //Create random products for debugging
-            //CriarProdutos();
-            FilterAndDrawItens();
-        }
-
-        public static string nameFilter = "", orderBy = "id";
-        public static int searchType, open = 0, i;
-        public static List<Products> products = new List<Products>();
-        public static List<StockProduct> stockProduct = new List<StockProduct>();
-
-        //Create random products for debugging
-        private void CriarProdutos()
-        {
-            if (open == 0)
+            orderByDescending.Clear();
+            orderByDescending.Add(true);
+            for (int i = 1; i < 4; i++)
             {
-                for (int i = 0; i < 1000; i++)
-                {
-                    stockProduct.Add(new StockProduct());
-                    stockProduct[i].ID = i + 1;
-                    stockProduct[i].ProductName = $"Produto {i + 1}";
-                    stockProduct[i].QTDE = i + 1;
-                    stockProduct[i].Price = Convert.ToSingle(i + 1);
-                }
-                open = 1;
+                orderByDescending.Add(false);
             }
+            FilterAndDrawItens(quantProdToDraw);
+            FilterAndDrawItens(quantProdToDraw);
         }
 
-        public static void FilterAndDrawItens()
-        {
-            flowPanelStock.Controls.Clear();
-            SaveInTXT.ReadTXT();
+        public static string nameFilter = "", orderBy = "";
+        public static int searchType, openCriarProdutos = 0, currentIndex = 0, quantProdToDraw = 1;
+        public static List<Products> products = new List<Products>();
+        public static List<dtoProduct> dtoProduct = new List<dtoProduct>();
+        private static List<bool> orderByDescending = new List<bool>();
 
+        public static void FilterAndDrawItens(int count)
+        {            
             if (orderBy == "id")
             {
                 OrderByID();
+                orderBy = "";
             }
             else if (orderBy == "name")
             {
                 OrderByName();
+                orderBy = "";
             }
             else if (orderBy == "quant")
             {
                 OrderByQuant();
+                orderBy = "";
             }
             else if (orderBy == "price")
             {
                 orderByPrice();
+                orderBy = "";
             }
 
-            int count = 0;
+            int itemsToLoad = Math.Min(count, dtoProduct.Count() - currentIndex);
+
+
+            int count1 = 0;
             try
             {
-                Main.mainProgressBar.Maximum = stockProduct.Count();
+                Main.mainProgressBar.Maximum = dtoProduct.Count();
 
-                for (int i = 0; i < stockProduct.Count(); i++)
+                for (int i = currentIndex; i < currentIndex + itemsToLoad; i++)
                 {
+                    if (currentIndex < 15)
+                    {
+                        quantProdToDraw = 15;
+                    }
+                    else
+                    {
+                        quantProdToDraw = 1;
+                    }
                     products.Add(new Products());
-                    products[i].ID = stockProduct[i].ID;
-                    products[i].ProductName = stockProduct[i].ProductName;
-                    products[i].QTDE = stockProduct[i].QTDE;
-                    products[i].Price = stockProduct[i].Price;
+                    products[i].ID = dtoProduct[i].ID;
+                    products[i].ProductName = dtoProduct[i].ProductName;
+                    products[i].QTDE = dtoProduct[i].QTDE;
+                    products[i].Price = dtoProduct[i].Price;
+
 
                     if (nameFilter != "")
                     {
                         if (searchType == 0 && products[i].ProductName.ToLower().Contains(nameFilter.ToLower()))
                         {
-                            if ((count % 2) == 0)
+                            if ((count1 % 2) == 0)
                             {
                                 products[i].BackColor = Color.DarkCyan;
                             }
@@ -93,12 +99,12 @@ namespace Sistema_de_vendas
                             {
                                 products[i].BackColor = Color.LightSeaGreen;
                             }
-                            count++;
+                            count1++;
                             flowPanelStock.Controls.Add(products[i]);
                         }
                         if (searchType == 1 && products[i].ProductName.ToLower().StartsWith(nameFilter.ToLower()))
                         {
-                            if ((count % 2) == 0)
+                            if ((count1 % 2) == 0)
                             {
                                 products[i].BackColor = Color.DarkCyan;
                             }
@@ -106,7 +112,7 @@ namespace Sistema_de_vendas
                             {
                                 products[i].BackColor = Color.LightSeaGreen;
                             }
-                            count++;
+                            count1++;
                             flowPanelStock.Controls.Add(products[i]);
                         }
                     }
@@ -124,11 +130,94 @@ namespace Sistema_de_vendas
                     }
 
                     Main.mainProgressBar.Value = i;
+
+
+                    if (currentIndex > 16)
+                    {
+                        flowPanelStock.Controls.RemoveAt(0);
+                    }
                 }
 
                 Main.mainProgressBar.Value = 0;
+                currentIndex += itemsToLoad;
             }
             catch { }
+        }
+
+        private void LoadPreviousItems(int count)
+        {
+            if (currentIndex > 16)
+            {
+                int quant = 16;
+                currentIndex -= count;
+                if (currentIndex < 0)
+                {
+                    currentIndex = 0;
+                }
+
+                int itemsToLoad = Math.Min(count, currentIndex);
+                int count1 = 0;
+
+                try
+                {
+                    for (int i = currentIndex; i < currentIndex + itemsToLoad; i++)
+                    {
+                        flowPanelStock.Controls.RemoveAt(flowPanelStock.Controls.Count - 1);
+
+                        products[currentIndex - quant].ID = dtoProduct[currentIndex - quant].ID;
+                        products[currentIndex - quant].ProductName = dtoProduct[currentIndex - quant].ProductName;
+                        products[currentIndex - quant].QTDE = dtoProduct[i].QTDE;
+                        products[currentIndex - quant].Price = dtoProduct[currentIndex - quant].Price;
+
+
+                        if (nameFilter != "")
+                        {
+                            if (searchType == 0 && products[currentIndex - quant].ProductName.ToLower().Contains(nameFilter.ToLower()))
+                            {
+                                if ((count1 % 2) == 0)
+                                {
+                                    products[currentIndex - quant].BackColor = Color.DarkCyan;
+                                }
+                                else
+                                {
+                                    products[currentIndex - quant].BackColor = Color.LightSeaGreen;
+                                }
+                                count1++;
+                                flowPanelStock.Controls.Add(products[currentIndex - quant]);
+                                flowPanelStock.Controls.SetChildIndex(products[currentIndex - quant], 0);
+                            }
+                            if (searchType == 1 && products[currentIndex - quant].ProductName.ToLower().StartsWith(nameFilter.ToLower()))
+                            {
+                                if ((count1 % 2) == 0)
+                                {
+                                    products[currentIndex - quant].BackColor = Color.DarkCyan;
+                                }
+                                else
+                                {
+                                    products[currentIndex - quant].BackColor = Color.LightSeaGreen;
+                                }
+                                count1++;
+                                flowPanelStock.Controls.Add(products[currentIndex - quant]);
+                                flowPanelStock.Controls.SetChildIndex(products[currentIndex - quant], 0);
+                            }
+                        }
+                        else
+                        {
+                            if ((i % 2) == 0)
+                            {
+                                products[currentIndex - quant].BackColor = Color.DarkCyan;
+                            }
+                            else
+                            {
+                                products[currentIndex - quant].BackColor = Color.LightSeaGreen;
+                            }
+                            flowPanelStock.Controls.Add(products[currentIndex - quant]);
+                            flowPanelStock.Controls.SetChildIndex(products[currentIndex - quant], 0);
+                        }
+                    }
+                }
+                catch { }
+            }
         }
 
         private void tbNameFilter_KeyDown(object sender, KeyEventArgs e)
@@ -137,7 +226,9 @@ namespace Sistema_de_vendas
             {
                 searchType = 1;
                 nameFilter = tbNameFilter.Text;
-                FilterAndDrawItens();
+                currentIndex = 0;
+                flowPanelStock.Controls.Clear();
+                FilterAndDrawItens(quantProdToDraw);
             }
         }
 
@@ -147,7 +238,9 @@ namespace Sistema_de_vendas
             {
                 searchType = 0;
                 nameFilter = tbNameFilterFlex.Text;
-                FilterAndDrawItens();
+                currentIndex = 0;
+                flowPanelStock.Controls.Clear();
+                FilterAndDrawItens(quantProdToDraw);
             }
         }
 
@@ -201,7 +294,6 @@ namespace Sistema_de_vendas
         private void btnADD_Click(object sender, EventArgs e)
         {
             CadProducts.mode = 0;
-            SaveInTXT.ReadTXT();
             CadProducts cadProducts = new CadProducts();
             cadProducts.Show();
         }
@@ -217,52 +309,168 @@ namespace Sistema_de_vendas
         private void btnID_Click(object sender, EventArgs e)
         {
             orderBy = "id";
-            FilterAndDrawItens();
+            currentIndex = 0;
+            quantProdToDraw = 15;
+            flowPanelStock.Controls.Clear();
+            FilterAndDrawItens(quantProdToDraw);
+            quantProdToDraw = 1;
         }
 
         private static void OrderByID()
         {
-            stockProduct = stockProduct.OrderBy(w => w.ID).ToList();
+            if (orderByDescending[0])
+            {
+                dtoProduct = dtoProduct.OrderByDescending(w => w.ID).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = false;
+                orderByDescending[2] = false;
+                orderByDescending[3] = false;
+
+            }
+            else
+            {
+                dtoProduct = dtoProduct.OrderBy(w => w.ID).ToList();
+                orderByDescending[0] = true;
+                orderByDescending[1] = false;
+                orderByDescending[2] = false;
+                orderByDescending[3] = false;
+            }
         }
 
         private void btnProductName_Click(object sender, EventArgs e)
         {
             orderBy = "name";
-            FilterAndDrawItens();
+            currentIndex = 0;
+            quantProdToDraw = 15;
+            flowPanelStock.Controls.Clear();
+            FilterAndDrawItens(quantProdToDraw);
+            quantProdToDraw = 1;
         }
 
         private static void OrderByName()
         {
-            stockProduct = stockProduct.OrderBy(w => w.ProductName).ToList();
+            if (orderByDescending[1])
+            {
+                dtoProduct = dtoProduct.OrderByDescending(w => w.ProductName).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = false;
+                orderByDescending[2] = false;
+                orderByDescending[3] = false;
+            }
+            else
+            {
+                dtoProduct = dtoProduct.OrderBy(w => w.ProductName).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = true;
+                orderByDescending[2] = false;
+                orderByDescending[3] = false;
+            }
         }
 
         private void btnQuant_Click(object sender, EventArgs e)
         {
             orderBy = "quant";
-            FilterAndDrawItens();
+            currentIndex = 0;
+            quantProdToDraw = 15;
+            flowPanelStock.Controls.Clear();
+            FilterAndDrawItens(quantProdToDraw);
+            quantProdToDraw = 1;
         }
 
         private static void OrderByQuant()
         {
-            stockProduct = stockProduct.OrderBy(w => w.QTDE).ToList();
+            if (orderByDescending[2])
+            {
+                dtoProduct = dtoProduct.OrderByDescending(w => w.QTDE).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = false;
+                orderByDescending[2] = false;
+                orderByDescending[3] = false;
+            }
+            else
+            {
+                dtoProduct = dtoProduct.OrderBy(w => w.QTDE).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = false;
+                orderByDescending[2] = true;
+                orderByDescending[3] = false;
+            }
         }
 
         private void btnPrice_Click(object sender, EventArgs e)
         {
             orderBy = "price";
-            FilterAndDrawItens();
+            currentIndex = 0;
+            quantProdToDraw = 15;
+            flowPanelStock.Controls.Clear();
+            FilterAndDrawItens(quantProdToDraw);
+            quantProdToDraw = 1;
         }
 
         private static void orderByPrice()
         {
-            stockProduct = stockProduct.OrderBy(w => w.Price).ToList();
+            if (orderByDescending[3])
+            {
+                dtoProduct = dtoProduct.OrderByDescending(w => w.Price).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = false;
+                orderByDescending[2] = false;
+                orderByDescending[3] = false;
+            }
+            else
+            {
+                dtoProduct = dtoProduct.OrderBy(w => w.Price).ToList();
+                orderByDescending[0] = false;
+                orderByDescending[1] = false;
+                orderByDescending[2] = false;
+                orderByDescending[3] = true;
+            }
         }
-    }
 
-    public class StockProduct
-    {
-        public int ID;
-        public string ProductName;
-        public float QTDE, Price;
+        private void tbNameFilter_TextChanged(object sender, EventArgs e)
+        {
+            if (tbNameFilter.Text == "")
+            {
+                nameFilter = tbNameFilter.Text;
+            }
+        }
+
+        private void tbNameFilterFlex_TextChanged(object sender, EventArgs e)
+        {
+            if (tbNameFilter.Text == "")
+            {
+                nameFilter = tbNameFilter.Text;
+            }
+        }
+
+        private async void OnMouseWheel(object sender, MouseEventArgs e)
+        {
+            await Task.Delay(10);
+
+            var maxScroll = flowPanelStock.VerticalScroll.Maximum - flowPanelStock.ClientSize.Height;
+            var PercentScroll = (int)(maxScroll * 1);
+            if (flowPanelStock.VerticalScroll.Value >= PercentScroll)
+            {
+                FilterAndDrawItens(quantProdToDraw);
+            }
+            else if (flowPanelStock.VerticalScroll.Value == 0)
+            {
+                LoadPreviousItems(quantProdToDraw);
+            }
+        }
+
+        private void OnScroll(object sender, ScrollEventArgs e)
+        {
+            var maxScroll = flowPanelStock.VerticalScroll.Maximum - flowPanelStock.ClientSize.Height;
+            var PercentScroll = (int)(maxScroll * 1);
+            if (flowPanelStock.VerticalScroll.Value >= PercentScroll)
+            {
+                FilterAndDrawItens(quantProdToDraw);
+            }
+            else if (flowPanelStock.VerticalScroll.Value == 0)
+            {
+                LoadPreviousItems(quantProdToDraw);
+            }
+        }
     }
 }

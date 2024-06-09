@@ -55,9 +55,10 @@
             // lblID
             // 
             lblID.AutoSize = true;
+            lblID.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             lblID.Location = new Point(12, 7);
             lblID.Name = "lblID";
-            lblID.Size = new Size(20, 17);
+            lblID.Size = new Size(22, 17);
             lblID.TabIndex = 11;
             lblID.Text = "ID";
             lblID.Click += lblID_Click;
@@ -67,9 +68,10 @@
             // lblProductName
             // 
             lblProductName.AutoSize = true;
-            lblProductName.Location = new Point(51, 7);
+            lblProductName.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            lblProductName.Location = new Point(76, 7);
             lblProductName.Name = "lblProductName";
-            lblProductName.Size = new Size(92, 17);
+            lblProductName.Size = new Size(96, 17);
             lblProductName.TabIndex = 12;
             lblProductName.Text = "Product Name";
             lblProductName.Click += lblProductName_Click;
@@ -80,9 +82,10 @@
             // 
             lblQuant.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblQuant.AutoSize = true;
-            lblQuant.Location = new Point(727, 7);
+            lblQuant.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            lblQuant.Location = new Point(723, 7);
             lblQuant.Name = "lblQuant";
-            lblQuant.Size = new Size(43, 17);
+            lblQuant.Size = new Size(46, 17);
             lblQuant.TabIndex = 13;
             lblQuant.Text = "Quant";
             lblQuant.Click += lblQuant_Click;
@@ -93,9 +96,10 @@
             // 
             lblPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblPrice.AutoSize = true;
-            lblPrice.Location = new Point(813, 7);
+            lblPrice.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            lblPrice.Location = new Point(809, 7);
             lblPrice.Name = "lblPrice";
-            lblPrice.Size = new Size(36, 17);
+            lblPrice.Size = new Size(38, 17);
             lblPrice.TabIndex = 14;
             lblPrice.Text = "Price";
             lblPrice.Click += lblPrice_Click;

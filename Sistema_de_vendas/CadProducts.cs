@@ -21,9 +21,9 @@ namespace Sistema_de_vendas
             if (mode == 1)
             {
                 indexCad = Products.index;
-                tbPrice.Text = Stock.stockProduct[indexCad].Price.ToString();
-                tbQuant.Text = Stock.stockProduct[indexCad].QTDE.ToString();
-                tbName.Text = Stock.stockProduct[indexCad].ProductName;
+                tbPrice.Text = Stock.dtoProduct[indexCad].Price.ToString();
+                tbQuant.Text = Stock.dtoProduct[indexCad].QTDE.ToString();
+                tbName.Text = Stock.dtoProduct[indexCad].ProductName;
             }
             else if (mode == 0)
             {
@@ -33,6 +33,7 @@ namespace Sistema_de_vendas
 
         public static int mode = 0;
         public static int quantProds = 1;
+        bllProduct bllProduct = new bllProduct();
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -41,13 +42,14 @@ namespace Sistema_de_vendas
             if (delete == DialogResult.OK)
             {
                 Stock.products.RemoveAt(indexCad);
-                Stock.stockProduct.RemoveAt(indexCad);
-                
+                bllProduct.deletar(Stock.dtoProduct[indexCad]);
+                Stock.dtoProduct.RemoveAt(indexCad);
+
+
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
 
-                SaveInTXT.WriteTXT();
                 Stock.flowPanelStock.Controls.RemoveAt(indexCad);
                 this.Close();
             }
@@ -60,29 +62,23 @@ namespace Sistema_de_vendas
                 switch (mode)
                 {
                     case 0:
-                        Stock.stockProduct.Add(new StockProduct());
-                        int i = Stock.stockProduct.Count() - 1;
-                        Stock.stockProduct[i].ID = quantProds;
-                        Stock.stockProduct[i].ProductName = tbName.Text;
-                        Stock.stockProduct[i].QTDE = Convert.ToSingle(tbQuant.Text);
-                        Stock.stockProduct[i].Price = Convert.ToSingle(tbPrice.Text);
-                        quantProds++;
+                        CreateNewProductOnList();
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
-                        SaveInTXT.WriteTXT();
                         DrawNewProduct();
                         this.Close();
                         break;
                     case 1:
-                        Stock.stockProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
-                        Stock.stockProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
-                        Stock.stockProduct[indexCad].ProductName = tbName.Text;
+                        UpdateProductList();
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
-                        SaveInTXT.WriteTXT();
-                        Stock.FilterAndDrawItens();
+                        Stock.currentIndex = 0;
+                        Stock.quantProdToDraw = 15;
+                        Stock.flowPanelStock.Controls.Clear();
+                        Stock.FilterAndDrawItens(Stock.quantProdToDraw);
+                        Stock.quantProdToDraw = 1;
                         this.Close();
                         break;
                 }
@@ -90,17 +86,39 @@ namespace Sistema_de_vendas
             catch
             {
                 MessageBox.Show("Invalid imput format", "Invalid imput", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                int i = Stock.dtoProduct.Count() - 1;
+                Stock.dtoProduct.RemoveAt(i);
             }
         }
 
+        private void UpdateProductList()
+        {
+            Stock.dtoProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
+            Stock.dtoProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
+            Stock.dtoProduct[indexCad].ProductName = tbName.Text;
+            bllProduct.alterar(Stock.dtoProduct[indexCad]);
+        }
+
+        private void CreateNewProductOnList()
+        {
+            Stock.dtoProduct.Add(new dtoProduct());
+            int i = Stock.dtoProduct.Count() - 1;
+            Stock.dtoProduct[i].QTDE = Convert.ToSingle(tbQuant.Text);
+            Stock.dtoProduct[i].Price = Convert.ToSingle(tbPrice.Text);
+            Stock.dtoProduct[i].ID = quantProds;
+            Stock.dtoProduct[i].ProductName = tbName.Text;
+            bllProduct.inserir(Stock.dtoProduct[i]);
+            quantProds++;
+        }
+
         private static void DrawNewProduct()
-        { 
+        {
             Stock.products.Add(new Products());
-            int index = Stock.stockProduct.Count() - 1;
-            Stock.products[index].ID = Stock.stockProduct[index].ID;
-            Stock.products[index].ProductName = Stock.stockProduct[index].ProductName;
-            Stock.products[index].QTDE = Stock.stockProduct[index].QTDE;
-            Stock.products[index].Price = Stock.stockProduct[index].Price;
+            int index = Stock.dtoProduct.Count() - 1;
+            Stock.products[index].ID = Stock.dtoProduct[index].ID;
+            Stock.products[index].ProductName = Stock.dtoProduct[index].ProductName;
+            Stock.products[index].QTDE = Stock.dtoProduct[index].QTDE;
+            Stock.products[index].Price = Stock.dtoProduct[index].Price;
             if ((index % 2) == 0)
             {
                 Stock.products[index].BackColor = Color.DarkCyan;
@@ -117,6 +135,26 @@ namespace Sistema_de_vendas
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void tbQuant_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+
+            if (!Char.IsDigit(ch) && ch != 8 && ch != 46 && ch != 48 && ch != 57 && ch != ',')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+
+            if (!Char.IsDigit(ch) && ch != 8 && ch != 46 && ch != 48 && ch != 57 && ch != ',')
+            {
+                e.Handled = true;
             }
         }
     }

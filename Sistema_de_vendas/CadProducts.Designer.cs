@@ -42,6 +42,7 @@
             // 
             tbName.Anchor = AnchorStyles.Top;
             tbName.Location = new Point(12, 94);
+            tbName.MaxLength = 255;
             tbName.Name = "tbName";
             tbName.Size = new Size(300, 25);
             tbName.TabIndex = 1;
@@ -53,6 +54,7 @@
             tbQuant.Name = "tbQuant";
             tbQuant.Size = new Size(300, 25);
             tbQuant.TabIndex = 2;
+            tbQuant.KeyPress += tbQuant_KeyPress;
             // 
             // tbPrice
             // 
@@ -61,6 +63,7 @@
             tbPrice.Name = "tbPrice";
             tbPrice.Size = new Size(300, 25);
             tbPrice.TabIndex = 3;
+            tbPrice.KeyPress += tbPrice_KeyPress;
             // 
             // label1
             // 

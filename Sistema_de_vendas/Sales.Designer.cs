@@ -36,11 +36,17 @@
             panel2 = new Panel();
             label3 = new Label();
             label2 = new Label();
-            dateTimeFilterEnd = new DateTimePicker();
+            dateTimeFilterFinal = new DateTimePicker();
             dateTimeFilterStart = new DateTimePicker();
             label1 = new Label();
+            panel3 = new Panel();
+            button3 = new Button();
+            button2 = new Button();
+            btnProductName = new Button();
+            btnID = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -51,7 +57,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(909, 32);
+            panel1.Size = new Size(915, 32);
             panel1.TabIndex = 0;
             // 
             // button1
@@ -97,10 +103,10 @@
             flowPanelSales.AutoScroll = true;
             flowPanelSales.BackColor = Color.LightSteelBlue;
             flowPanelSales.Font = new Font("Segoe UI", 9.75F);
-            flowPanelSales.Location = new Point(165, 32);
+            flowPanelSales.Location = new Point(165, 65);
             flowPanelSales.Margin = new Padding(0);
             flowPanelSales.Name = "flowPanelSales";
-            flowPanelSales.Size = new Size(744, 459);
+            flowPanelSales.Size = new Size(750, 432);
             flowPanelSales.TabIndex = 2;
             // 
             // panel2
@@ -109,7 +115,7 @@
             panel2.BackColor = Color.FromArgb(76, 0, 0);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(label2);
-            panel2.Controls.Add(dateTimeFilterEnd);
+            panel2.Controls.Add(dateTimeFilterFinal);
             panel2.Controls.Add(dateTimeFilterStart);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(tbClienteFilterFlex);
@@ -117,7 +123,7 @@
             panel2.Location = new Point(0, 32);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(165, 459);
+            panel2.Size = new Size(165, 465);
             panel2.TabIndex = 1;
             // 
             // label3
@@ -125,7 +131,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.HighlightText;
-            label3.Location = new Point(3, 251);
+            label3.Location = new Point(0, 159);
             label3.Name = "label3";
             label3.Size = new Size(89, 21);
             label3.TabIndex = 5;
@@ -136,24 +142,24 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.HighlightText;
-            label2.Location = new Point(3, 197);
+            label2.Location = new Point(0, 107);
             label2.Name = "label2";
             label2.Size = new Size(99, 21);
             label2.TabIndex = 3;
             label2.Text = "Inicial date:";
             // 
-            // dateTimeFilterEnd
+            // dateTimeFilterFinal
             // 
-            dateTimeFilterEnd.Format = DateTimePickerFormat.Short;
-            dateTimeFilterEnd.Location = new Point(0, 275);
-            dateTimeFilterEnd.Name = "dateTimeFilterEnd";
-            dateTimeFilterEnd.Size = new Size(165, 25);
-            dateTimeFilterEnd.TabIndex = 6;
+            dateTimeFilterFinal.Format = DateTimePickerFormat.Short;
+            dateTimeFilterFinal.Location = new Point(0, 183);
+            dateTimeFilterFinal.Name = "dateTimeFilterFinal";
+            dateTimeFilterFinal.Size = new Size(165, 25);
+            dateTimeFilterFinal.TabIndex = 6;
             // 
             // dateTimeFilterStart
             // 
             dateTimeFilterStart.Format = DateTimePickerFormat.Short;
-            dateTimeFilterStart.Location = new Point(0, 221);
+            dateTimeFilterStart.Location = new Point(0, 131);
             dateTimeFilterStart.Name = "dateTimeFilterStart";
             dateTimeFilterStart.Size = new Size(165, 25);
             dateTimeFilterStart.TabIndex = 4;
@@ -169,11 +175,92 @@
             label1.TabIndex = 0;
             label1.Text = "FILTERS";
             // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(76, 0, 0);
+            panel3.Controls.Add(button3);
+            panel3.Controls.Add(button2);
+            panel3.Controls.Add(btnProductName);
+            panel3.Controls.Add(btnID);
+            panel3.Location = new Point(165, 32);
+            panel3.Margin = new Padding(0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(750, 33);
+            panel3.TabIndex = 3;
+            // 
+            // button3
+            // 
+            button3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            button3.ForeColor = SystemColors.HighlightText;
+            button3.Location = new Point(625, 0);
+            button3.Margin = new Padding(0);
+            button3.Name = "button3";
+            button3.Size = new Size(125, 33);
+            button3.TabIndex = 8;
+            button3.Text = "Sale date";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            button2.ForeColor = SystemColors.HighlightText;
+            button2.Location = new Point(518, 0);
+            button2.Margin = new Padding(0);
+            button2.Name = "button2";
+            button2.Size = new Size(107, 33);
+            button2.TabIndex = 7;
+            button2.Text = "Total";
+            button2.TextAlign = ContentAlignment.MiddleLeft;
+            button2.UseVisualStyleBackColor = false;
+            // 
+            // btnProductName
+            // 
+            btnProductName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnProductName.FlatAppearance.BorderSize = 0;
+            btnProductName.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
+            btnProductName.FlatStyle = FlatStyle.Flat;
+            btnProductName.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnProductName.ForeColor = SystemColors.HighlightText;
+            btnProductName.Location = new Point(70, 0);
+            btnProductName.Margin = new Padding(0);
+            btnProductName.Name = "btnProductName";
+            btnProductName.Size = new Size(448, 33);
+            btnProductName.TabIndex = 6;
+            btnProductName.Text = "Costumer Name";
+            btnProductName.TextAlign = ContentAlignment.MiddleLeft;
+            btnProductName.UseVisualStyleBackColor = false;
+            // 
+            // btnID
+            // 
+            btnID.FlatAppearance.BorderSize = 0;
+            btnID.FlatAppearance.MouseOverBackColor = Color.FromArgb(114, 0, 0);
+            btnID.FlatStyle = FlatStyle.Flat;
+            btnID.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnID.ForeColor = SystemColors.HighlightText;
+            btnID.Location = new Point(0, 0);
+            btnID.Margin = new Padding(0);
+            btnID.Name = "btnID";
+            btnID.Size = new Size(70, 33);
+            btnID.TabIndex = 5;
+            btnID.Text = "  ID";
+            btnID.TextAlign = ContentAlignment.MiddleLeft;
+            btnID.UseVisualStyleBackColor = false;
+            // 
             // Sales
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(909, 490);
+            ClientSize = new Size(915, 496);
+            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(flowPanelSales);
             Controls.Add(panel1);
@@ -183,25 +270,32 @@
             Text = "Sales";
             TopMost = true;
             FormClosing += Sales_FormClosing;
+            Load += Sales_Load;
             KeyDown += Sales_KeyDown;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private FlowLayoutPanel flowPanelSales;
         private Button button1;
         private TextBox tbClienteFilterFlex;
         private TextBox tbClienteFilterRestricted;
         private Panel panel2;
         private Label label1;
         private DateTimePicker dateTimeFilterStart;
-        private DateTimePicker dateTimeFilterEnd;
+        private DateTimePicker dateTimeFilterFinal;
         private Label label3;
         private Label label2;
+        private Panel panel3;
+        private Button btnID;
+        private Button button3;
+        private Button button2;
+        private Button btnProductName;
+        public static FlowLayoutPanel flowPanelSales;
     }
 }
