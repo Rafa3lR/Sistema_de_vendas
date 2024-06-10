@@ -35,7 +35,6 @@ namespace Sistema_de_vendas
 
         public static string nameFilter = "", orderBy = "";
         public static int searchType, openCriarProdutos = 0, currentIndex = 0, quantProdToDraw = 1;
-        public static List<Products> products = new List<Products>();
         public static List<dtoProduct> dtoProduct = new List<dtoProduct>();
         private static List<bool> orderByDescending = new List<bool>();
 
@@ -68,8 +67,6 @@ namespace Sistema_de_vendas
             int count1 = 0;
             try
             {
-                Main.mainProgressBar.Maximum = dtoProduct.Count();
-
                 for (int i = currentIndex; i < currentIndex + itemsToLoad; i++)
                 {
                     if (currentIndex < 15)
@@ -80,57 +77,21 @@ namespace Sistema_de_vendas
                     {
                         quantProdToDraw = 1;
                     }
-                    products.Add(new Products());
-                    products[i].ID = dtoProduct[i].ID;
-                    products[i].ProductName = dtoProduct[i].ProductName;
-                    products[i].QTDE = dtoProduct[i].QTDE;
-                    products[i].Price = dtoProduct[i].Price;
+                    Products products = new Products();
+                    products.ID = dtoProduct[i].ID;
+                    products.ProductName = dtoProduct[i].ProductName;
+                    products.QTDE = dtoProduct[i].QTDE;
+                    products.Price = dtoProduct[i].Price;
 
-
-                    if (nameFilter != "")
+                    if ((i % 2) == 0)
                     {
-                        if (searchType == 0 && products[i].ProductName.ToLower().Contains(nameFilter.ToLower()))
-                        {
-                            if ((count1 % 2) == 0)
-                            {
-                                products[i].BackColor = Color.DarkCyan;
-                            }
-                            else
-                            {
-                                products[i].BackColor = Color.LightSeaGreen;
-                            }
-                            count1++;
-                            flowPanelStock.Controls.Add(products[i]);
-                        }
-                        if (searchType == 1 && products[i].ProductName.ToLower().StartsWith(nameFilter.ToLower()))
-                        {
-                            if ((count1 % 2) == 0)
-                            {
-                                products[i].BackColor = Color.DarkCyan;
-                            }
-                            else
-                            {
-                                products[i].BackColor = Color.LightSeaGreen;
-                            }
-                            count1++;
-                            flowPanelStock.Controls.Add(products[i]);
-                        }
+                        products.BackColor = Color.DarkCyan;
                     }
                     else
                     {
-                        if ((i % 2) == 0)
-                        {
-                            products[i].BackColor = Color.DarkCyan;
-                        }
-                        else
-                        {
-                            products[i].BackColor = Color.LightSeaGreen;
-                        }
-                        flowPanelStock.Controls.Add(products[i]);
+                        products.BackColor = Color.LightSeaGreen;
                     }
-
-                    Main.mainProgressBar.Value = i;
-
+                    flowPanelStock.Controls.Add(products);
 
                     if (currentIndex > 16)
                     {
@@ -138,7 +99,6 @@ namespace Sistema_de_vendas
                     }
                 }
 
-                Main.mainProgressBar.Value = 0;
                 currentIndex += itemsToLoad;
             }
             catch { }
@@ -162,58 +122,22 @@ namespace Sistema_de_vendas
                 {
                     for (int i = currentIndex; i < currentIndex + itemsToLoad; i++)
                     {
-                        flowPanelStock.Controls.RemoveAt(flowPanelStock.Controls.Count - 1);
-
-                        products[currentIndex - quant].ID = dtoProduct[currentIndex - quant].ID;
-                        products[currentIndex - quant].ProductName = dtoProduct[currentIndex - quant].ProductName;
-                        products[currentIndex - quant].QTDE = dtoProduct[i].QTDE;
-                        products[currentIndex - quant].Price = dtoProduct[currentIndex - quant].Price;
-
-
-                        if (nameFilter != "")
+                        Products products = new Products();
+                        products.ID = dtoProduct[currentIndex - quant].ID;
+                        products.ProductName = dtoProduct[currentIndex - quant].ProductName;
+                        products.QTDE = dtoProduct[i].QTDE;
+                        products.Price = dtoProduct[currentIndex - quant].Price;
+                        if ((i % 2) == 0)
                         {
-                            if (searchType == 0 && products[currentIndex - quant].ProductName.ToLower().Contains(nameFilter.ToLower()))
-                            {
-                                if ((count1 % 2) == 0)
-                                {
-                                    products[currentIndex - quant].BackColor = Color.DarkCyan;
-                                }
-                                else
-                                {
-                                    products[currentIndex - quant].BackColor = Color.LightSeaGreen;
-                                }
-                                count1++;
-                                flowPanelStock.Controls.Add(products[currentIndex - quant]);
-                                flowPanelStock.Controls.SetChildIndex(products[currentIndex - quant], 0);
-                            }
-                            if (searchType == 1 && products[currentIndex - quant].ProductName.ToLower().StartsWith(nameFilter.ToLower()))
-                            {
-                                if ((count1 % 2) == 0)
-                                {
-                                    products[currentIndex - quant].BackColor = Color.DarkCyan;
-                                }
-                                else
-                                {
-                                    products[currentIndex - quant].BackColor = Color.LightSeaGreen;
-                                }
-                                count1++;
-                                flowPanelStock.Controls.Add(products[currentIndex - quant]);
-                                flowPanelStock.Controls.SetChildIndex(products[currentIndex - quant], 0);
-                            }
+                            products.BackColor = Color.DarkCyan;
                         }
                         else
                         {
-                            if ((i % 2) == 0)
-                            {
-                                products[currentIndex - quant].BackColor = Color.DarkCyan;
-                            }
-                            else
-                            {
-                                products[currentIndex - quant].BackColor = Color.LightSeaGreen;
-                            }
-                            flowPanelStock.Controls.Add(products[currentIndex - quant]);
-                            flowPanelStock.Controls.SetChildIndex(products[currentIndex - quant], 0);
+                            products.BackColor = Color.LightSeaGreen;
                         }
+                        flowPanelStock.Controls.RemoveAt(flowPanelStock.Controls.Count - 1);
+                        flowPanelStock.Controls.Add(products);
+                        flowPanelStock.Controls.SetChildIndex(products, 0);                        
                     }
                 }
                 catch { }
@@ -224,11 +148,13 @@ namespace Sistema_de_vendas
         {
             if (e.KeyCode == Keys.Enter)
             {
-                searchType = 1;
+                /*searchType = 1;
                 nameFilter = tbNameFilter.Text;
                 currentIndex = 0;
+                quantProdToDraw = 150;
                 flowPanelStock.Controls.Clear();
                 FilterAndDrawItens(quantProdToDraw);
+                quantProdToDraw = 1;*/
             }
         }
 
@@ -236,11 +162,13 @@ namespace Sistema_de_vendas
         {
             if (e.KeyCode == Keys.Enter)
             {
-                searchType = 0;
+                /*searchType = 0;
                 nameFilter = tbNameFilterFlex.Text;
                 currentIndex = 0;
+                quantProdToDraw = 150;
                 flowPanelStock.Controls.Clear();
                 FilterAndDrawItens(quantProdToDraw);
+                quantProdToDraw = 1;*/
             }
         }
 

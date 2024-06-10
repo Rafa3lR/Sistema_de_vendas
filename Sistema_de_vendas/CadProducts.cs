@@ -41,7 +41,6 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                Stock.products.RemoveAt(indexCad);
                 bllProduct.deletar(Stock.dtoProduct[indexCad]);
                 Stock.dtoProduct.RemoveAt(indexCad);
 
@@ -113,21 +112,21 @@ namespace Sistema_de_vendas
 
         private static void DrawNewProduct()
         {
-            Stock.products.Add(new Products());
+            Products products = new Products();
             int index = Stock.dtoProduct.Count() - 1;
-            Stock.products[index].ID = Stock.dtoProduct[index].ID;
-            Stock.products[index].ProductName = Stock.dtoProduct[index].ProductName;
-            Stock.products[index].QTDE = Stock.dtoProduct[index].QTDE;
-            Stock.products[index].Price = Stock.dtoProduct[index].Price;
+            products.ID = Stock.dtoProduct[index].ID;
+            products.ProductName = Stock.dtoProduct[index].ProductName;
+            products.QTDE = Stock.dtoProduct[index].QTDE;
+            products.Price = Stock.dtoProduct[index].Price;
             if ((index % 2) == 0)
             {
-                Stock.products[index].BackColor = Color.DarkCyan;
+                products.BackColor = Color.DarkCyan;
             }
             else
             {
-                Stock.products[index].BackColor = Color.LightSeaGreen;
+                products.BackColor = Color.LightSeaGreen;
             }
-            Stock.flowPanelStock.Controls.Add(Stock.products[index]);
+            Stock.flowPanelStock.Controls.Add(products);
         }
 
         private void CadProducts_KeyDown(object sender, KeyEventArgs e)
