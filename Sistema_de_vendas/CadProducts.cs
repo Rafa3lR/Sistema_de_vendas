@@ -13,14 +13,15 @@ namespace Sistema_de_vendas
 {
     public partial class CadProducts : Form
     {
-        private int indexCad;
+        private int indexCad, indexProd;
 
         public CadProducts()
         {
             InitializeComponent();
             if (mode == 1)
             {
-                indexCad = Products.index;
+                indexCad = Products.indexCad;
+                indexProd = Products.indexProd;
                 tbPrice.Text = Stock.dtoProduct[indexCad].Price.ToString();
                 tbQuant.Text = Stock.dtoProduct[indexCad].QTDE.ToString();
                 tbName.Text = Stock.dtoProduct[indexCad].ProductName;
@@ -44,12 +45,12 @@ namespace Sistema_de_vendas
                 bllProduct.deletar(Stock.dtoProduct[indexCad]);
                 Stock.dtoProduct.RemoveAt(indexCad);
 
-
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
 
-                Stock.flowPanelStock.Controls.RemoveAt(indexCad);
+                Stock.flowPanelStock.Controls.Remove(Stock.productIndex(Stock.products, indexProd));
+                Stock.RemoveAt(Stock.products, indexProd);
                 this.Close();
             }
         }
@@ -73,13 +74,19 @@ namespace Sistema_de_vendas
                         tbName.Text = "";
                         tbQuant.Text = "";
                         tbPrice.Text = "";
-                        Stock.currentIndex = 0;
-                        Stock.quantProdToDraw = 15;
-                        Stock.flowPanelStock.Controls.Clear();
-                        Stock.FilterAndDrawItens(Stock.quantProdToDraw);
-                        Stock.quantProdToDraw = 1;
+
+                        Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
+                        Products products = (Products)control;
+                        if (control is Products productControl)
+                        {
+                            products.ID = Stock.dtoProduct[indexCad].ID;
+                            products.ProductName = Stock.dtoProduct[indexCad].ProductName;
+                            products.QTDE = Stock.dtoProduct[indexCad].QTDE;
+                            products.Price = Stock.dtoProduct[indexCad].Price;
+                        }
+
                         this.Close();
-                        break;
+                        break;                                          
                 }
             }
             catch
@@ -118,6 +125,7 @@ namespace Sistema_de_vendas
             products.ProductName = Stock.dtoProduct[index].ProductName;
             products.QTDE = Stock.dtoProduct[index].QTDE;
             products.Price = Stock.dtoProduct[index].Price;
+            
             if ((index % 2) == 0)
             {
                 products.BackColor = Color.DarkCyan;
@@ -126,7 +134,9 @@ namespace Sistema_de_vendas
             {
                 products.BackColor = Color.LightSeaGreen;
             }
-            Stock.flowPanelStock.Controls.Add(products);
+            Stock.products.AddLast(products);
+            Stock.currentIndex++;
+            Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
         }
 
         private void CadProducts_KeyDown(object sender, KeyEventArgs e)

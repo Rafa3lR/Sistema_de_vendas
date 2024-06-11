@@ -30,13 +30,14 @@ namespace Sistema_de_vendas
         }
 
         private string _productname;
-        public static int index;
+        public static int indexCad, indexProd;
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
             try
             {
-                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexCad = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexProd = Stock.EncontrarIndice(Stock.products, this);
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -48,7 +49,8 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexCad = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexProd = Stock.EncontrarIndice(Stock.products, this);
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -60,7 +62,8 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexCad = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexProd = Stock.EncontrarIndice(Stock.products, this);
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -72,7 +75,8 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexCad = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexProd = Stock.EncontrarIndice(Stock.products, this);
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();
@@ -84,7 +88,8 @@ namespace Sistema_de_vendas
         {
             try
             {
-                index = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexCad = Stock.dtoProduct.FindIndex(produto => produto.ID == Convert.ToInt32(lblID.Text));
+                indexProd = Stock.EncontrarIndice(Stock.products, this);
                 CadProducts.mode = 1;
                 CadProducts cadProducts = new CadProducts();
                 cadProducts.Show();

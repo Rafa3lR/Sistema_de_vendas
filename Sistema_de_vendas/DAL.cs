@@ -12,7 +12,7 @@ namespace Sistema_de_vendas
         private MySqlDataReader dr;
         private MySqlCommandBuilder cb;
 
-        private String server = "127.0.0.1";
+        private String server = "localhost";
         private String user = "root";
         private String database = "SISTEMA_DE_VENDAS";
         private String port = "3306";
@@ -71,14 +71,14 @@ namespace Sistema_de_vendas
             }
         }
 
-        public DataTable RetDataTable(string sql)
+        /*public DataTable RetDataTable(string sql)
         {
             data = new DataTable();
             da = new MySqlDataAdapter(sql, conn);
             cb = new MySqlCommandBuilder(da);
             da.Fill(data);
             return data;
-        }
+        }*/
 
         public MySqlDataReader RetDataReader(string sql)
         {
