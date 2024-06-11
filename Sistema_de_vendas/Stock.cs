@@ -76,7 +76,7 @@ namespace Sistema_de_vendas
                     productCriar.Price = dtoProduct[i].Price;
                     
 
-                    if ((i % 2) == 0)
+                    if ((dtoProduct[i].ID % 2) == 0)
                     {
                         productCriar.BackColor = Color.DarkCyan;
                     }
@@ -102,42 +102,37 @@ namespace Sistema_de_vendas
 
         private void LoadPreviousItems(int count)
         {
-            if (currentIndex > 16)
+            if (currentIndex > 17)
             {
-                int quant = 16;
+                int quant = 17;
                 currentIndex -= count;
                 if (currentIndex < 0)
                 {
                     currentIndex = 0;
                 }
 
-                int itemsToLoad = Math.Min(count, currentIndex);
-                int count1 = 0;
-
                 try
                 {
-                    for (int i = currentIndex; i < currentIndex + itemsToLoad; i++)
+                    Products productCriar = new Products();
+                    productCriar.ID = dtoProduct[currentIndex - quant].ID;
+                    productCriar.ProductName = dtoProduct[currentIndex - quant].ProductName;
+                    productCriar.QTDE = dtoProduct[currentIndex - quant].QTDE;
+                    productCriar.Price = dtoProduct[currentIndex - quant].Price;
+                    if ((dtoProduct[currentIndex - quant].ID % 2) == 0)
                     {
-                        Products productCriar = new Products();
-                        productCriar.ID = dtoProduct[currentIndex - quant].ID;
-                        productCriar.ProductName = dtoProduct[currentIndex - quant].ProductName;
-                        productCriar.QTDE = dtoProduct[currentIndex - quant].QTDE;
-                        productCriar.Price = dtoProduct[currentIndex - quant].Price;
-                        if ((i % 2) == 0)
-                        {
-                            productCriar.BackColor = Color.DarkCyan;
-                        }
-                        else
-                        {
-                            productCriar.BackColor = Color.LightSeaGreen;
-                        }
-                        RemoveAt(products, flowPanelStock.Controls.Count - 1);
-                        flowPanelStock.Controls.RemoveAt(flowPanelStock.Controls.Count - 1);
-                        productCriar.Name = dtoProduct[i].ID.ToString();
-                        products.AddFirst(productCriar);
-                        flowPanelStock.Controls.Add(products.First.Value);
-                        flowPanelStock.Controls.SetChildIndex(products.First.Value, 0);
+                        productCriar.BackColor = Color.DarkCyan;
                     }
+                    else
+                    {
+                        productCriar.BackColor = Color.LightSeaGreen;
+                    }
+                    RemoveAt(products, flowPanelStock.Controls.Count - 1);
+                    flowPanelStock.Controls.RemoveAt(flowPanelStock.Controls.Count - 1);
+                    productCriar.Name = dtoProduct[currentIndex - quant].ID.ToString();
+                    products.AddFirst(productCriar);
+                    flowPanelStock.Controls.Add(products.First.Value);
+                    flowPanelStock.Controls.SetChildIndex(products.First.Value, 0);
+
                 }
                 catch { }
             }

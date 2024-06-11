@@ -77,16 +77,13 @@ namespace Sistema_de_vendas
 
                         Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
                         Products products = (Products)control;
-                        if (control is Products productControl)
-                        {
-                            products.ID = Stock.dtoProduct[indexCad].ID;
-                            products.ProductName = Stock.dtoProduct[indexCad].ProductName;
-                            products.QTDE = Stock.dtoProduct[indexCad].QTDE;
-                            products.Price = Stock.dtoProduct[indexCad].Price;
-                        }
+                        products.ID = Stock.dtoProduct[indexCad].ID;
+                        products.ProductName = Stock.dtoProduct[indexCad].ProductName;
+                        products.QTDE = Stock.dtoProduct[indexCad].QTDE;
+                        products.Price = Stock.dtoProduct[indexCad].Price;
 
                         this.Close();
-                        break;                                          
+                        break;
                 }
             }
             catch
