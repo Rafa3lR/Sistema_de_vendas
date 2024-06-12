@@ -144,7 +144,7 @@ namespace Sistema_de_vendas
         public float Total
         {
             set
-            { lblTotal.Text = "R$ " + value.ToString(); }
+            { lblTotal.Text = "$ " + value.ToString(); }
         }
 
         public DateTime saleDate

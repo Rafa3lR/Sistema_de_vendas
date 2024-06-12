@@ -42,12 +42,31 @@ namespace Sistema_de_vendas
 
             if (delete == DialogResult.OK)
             {
-                bllProduct.deletar(Stock.dtoProduct[indexCad]);
+                bllProduct.DeletarAsync(Stock.dtoProduct[indexCad]);
                 Stock.dtoProduct.RemoveAt(indexCad);
 
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
+
+                int i = Stock.currentIndex - 1;
+                Products productCriar = new Products();
+                productCriar.ID = Stock.dtoProduct[i].ID;
+                productCriar.ProductName = Stock.dtoProduct[i].ProductName;
+                productCriar.QTDE = Stock.dtoProduct[i].QTDE;
+                productCriar.Price = Stock.dtoProduct[i].Price;
+                
+                if ((Stock.dtoProduct[i].ID % 2) == 0)
+                {
+                    productCriar.BackColor = Color.DarkCyan;
+                }
+                else
+                {
+                    productCriar.BackColor = Color.LightSeaGreen;
+                }
+                productCriar.Name = Stock.dtoProduct[i].ID.ToString();
+                Stock.products.AddLast(productCriar);
+                Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
 
                 Stock.flowPanelStock.Controls.Remove(Stock.productIndex(Stock.products, indexProd));
                 Stock.RemoveAt(Stock.products, indexProd);
@@ -99,7 +118,7 @@ namespace Sistema_de_vendas
             Stock.dtoProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
             Stock.dtoProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
             Stock.dtoProduct[indexCad].ProductName = tbName.Text;
-            bllProduct.alterar(Stock.dtoProduct[indexCad]);
+            bllProduct.AlterarAsync(Stock.dtoProduct[indexCad]);
         }
 
         private void CreateNewProductOnList()
@@ -110,7 +129,7 @@ namespace Sistema_de_vendas
             Stock.dtoProduct[i].Price = Convert.ToSingle(tbPrice.Text);
             Stock.dtoProduct[i].ID = quantProds;
             Stock.dtoProduct[i].ProductName = tbName.Text;
-            bllProduct.inserir(Stock.dtoProduct[i]);
+            bllProduct.InserirAsync(Stock.dtoProduct[i]);
             quantProds++;
         }
 

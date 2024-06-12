@@ -50,7 +50,6 @@ namespace Sistema_de_vendas
             flowPanelSales.Controls.Clear();
 
             int count = 0;
-            Main.mainProgressBar.Maximum = costumerSales.Count();
 
             for (int i = 0; i < costumerSales.Count(); i++)
             {
@@ -73,10 +72,7 @@ namespace Sistema_de_vendas
 
                 flowPanelSales.Controls.Add(sale[i]);
 
-                Main.mainProgressBar.Value = i;
             }
-
-            Main.mainProgressBar.Value = 0;
         }
 
 

@@ -7,90 +7,85 @@ namespace Sistema_de_vendas
     internal class DAL
     {
         private MySqlConnection conn;
-        private DataTable data;
-        private MySqlDataAdapter da;
-        private MySqlDataReader dr;
-        private MySqlCommandBuilder cb;
 
         private String server = "localhost";
         private String user = "root";
         private String database = "SISTEMA_DE_VENDAS";
         private String port = "3306";
-        private String password = "root";
+        private String password = "168395";
 
-        public void Conectar()
+        public async Task ConectarAsync()
         {
-            //string connStr = "server=127.0.0.1;user=root;database=DB_Requerimento_Padrao;port=3306;password=root";
             string connStr = String.Format("server={0}; User Id={1}; database={2}; port={3}; password={4}; pooling=false", server, user, database, port, password);
             try
             {
                 if (conn != null)
                 {
-                    conn.Close();
+                    await conn.CloseAsync();
                 }
                 conn = new MySqlConnection(connStr);
+                await conn.OpenAsync();
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show("Não foi possível realizar a conexão!");
-                //MessageBox.Show(ex.ToString());
             }
             finally
             {
-                conn.Close();
+                if (conn != null && conn.State == ConnectionState.Open)
+                {
+                    await conn.CloseAsync();
+                }
             }
         }
 
-        public void ExecutarComandoSQL(string comandoSql)
+        public async Task ExecutarComandoSQLAsync(string comandoSql)
         {
-
             try
             {
-                conn.Open();
+                if (conn.State != ConnectionState.Open)
+                {
+                    await conn.OpenAsync();
+                }
 
                 if (conn.State == ConnectionState.Open)
                 {
-
                     MySqlCommand comando = new MySqlCommand(comandoSql, conn);
-                    comando.ExecuteNonQuery();
-                    //MessageBox.Show("Comando SQL executado com sucesso!");
+                    await comando.ExecuteNonQueryAsync();
                 }
                 else
                 {
-                    //MessageBox.Show("conexao nao foi aberta, impossivel executar o comando sql");
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                //MessageBox.Show("erro ao executar comando sql");
-                //MessageBox.Show(ex.ToString());
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                {
+                    await conn.CloseAsync();
+                }
             }
         }
 
-        /*public DataTable RetDataTable(string sql)
+        public async Task<MySqlDataReader> RetDataReaderAsync(string sql)
         {
-            data = new DataTable();
-            da = new MySqlDataAdapter(sql, conn);
-            cb = new MySqlCommandBuilder(da);
-            da.Fill(data);
-            return data;
-        }*/
+            if (conn.State != ConnectionState.Open)
+            {
+                await conn.OpenAsync();
+            }
 
-        public MySqlDataReader RetDataReader(string sql)
-        {
-            conn.Open();
             MySqlCommand comando = new MySqlCommand(sql, conn);
-            MySqlDataReader dr = comando.ExecuteReader();
+            MySqlDataReader dr = (MySqlDataReader)await comando.ExecuteReaderAsync();
             return dr;
         }
 
-        public void Fechar()
+        public async Task FecharAsync()
         {
-            conn.Close();
+            if (conn != null && conn.State == ConnectionState.Open)
+            {
+                await conn.CloseAsync();
+            }
         }
     }
 }

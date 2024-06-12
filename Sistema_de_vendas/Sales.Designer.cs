@@ -106,7 +106,7 @@
             flowPanelSales.Location = new Point(165, 65);
             flowPanelSales.Margin = new Padding(0);
             flowPanelSales.Name = "flowPanelSales";
-            flowPanelSales.Size = new Size(750, 432);
+            flowPanelSales.Size = new Size(750, 475);
             flowPanelSales.TabIndex = 2;
             // 
             // panel2
@@ -123,7 +123,7 @@
             panel2.Location = new Point(0, 32);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(165, 465);
+            panel2.Size = new Size(165, 505);
             panel2.TabIndex = 1;
             // 
             // label3
@@ -259,7 +259,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(915, 496);
+            ClientSize = new Size(915, 536);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(flowPanelSales);

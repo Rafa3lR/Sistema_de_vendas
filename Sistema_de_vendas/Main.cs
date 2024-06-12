@@ -20,10 +20,17 @@ namespace Sistema_de_vendas
             stock.Show();
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private async void Main_Load(object sender, EventArgs e)
         {
-            bllProduct bllProduct = new bllProduct();
-            bllProduct.selecionar();
+            try
+            {
+                bllProduct bllProduct = new bllProduct();
+                await bllProduct.SelecionarAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro: {ex.Message}");
+            }
         }
     }
 }

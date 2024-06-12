@@ -29,7 +29,7 @@ namespace Sistema_de_vendas
             {
                 orderByDescending.Add(false);
             }
-            FilterAndDrawItens(15);
+            FilterAndDrawItens(16);
         }
 
         public static string nameFilter = "", orderBy = "";
@@ -57,14 +57,12 @@ namespace Sistema_de_vendas
             }
             else if (orderBy == "price")
             {
-                orderByPrice();
+                OrderByPrice();
                 orderBy = "";
             }
 
             int itemsToLoad = Math.Min(count, dtoProduct.Count() - currentIndex);
 
-
-            int count1 = 0;
             try
             {
                 for (int i = currentIndex; i < currentIndex + itemsToLoad; i++)
@@ -278,7 +276,7 @@ namespace Sistema_de_vendas
         {
             orderBy = "id";
             currentIndex = 0;
-            quantProdToDraw = 15;
+            quantProdToDraw = 16;
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
@@ -309,7 +307,7 @@ namespace Sistema_de_vendas
         {
             orderBy = "name";
             currentIndex = 0;
-            quantProdToDraw = 15;
+            quantProdToDraw = 16;
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
@@ -339,7 +337,7 @@ namespace Sistema_de_vendas
         {
             orderBy = "quant";
             currentIndex = 0;
-            quantProdToDraw = 15;
+            quantProdToDraw = 16;
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
@@ -369,13 +367,13 @@ namespace Sistema_de_vendas
         {
             orderBy = "price";
             currentIndex = 0;
-            quantProdToDraw = 15;
+            quantProdToDraw = 16;
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
         }
 
-        private static void orderByPrice()
+        private static void OrderByPrice()
         {
             if (orderByDescending[3])
             {
@@ -412,7 +410,7 @@ namespace Sistema_de_vendas
         }
 
         private void OnMouseWheel(object sender, MouseEventArgs e)
-        {
+        {            
             var maxScroll = flowPanelStock.VerticalScroll.Maximum - flowPanelStock.ClientSize.Height;
             var PercentScroll = (int)(maxScroll * 1);
             if (flowPanelStock.VerticalScroll.Value >= PercentScroll)

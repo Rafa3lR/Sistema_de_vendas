@@ -59,7 +59,6 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(76, 0, 0);
-            panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(tbNameFilterFlex);
             panel1.Controls.Add(btnADD);
             panel1.Controls.Add(tbNameFilter);
@@ -75,7 +74,7 @@
             tbNameFilterFlex.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             tbNameFilterFlex.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             tbNameFilterFlex.ForeColor = Color.FromArgb(114, 114, 114);
-            tbNameFilterFlex.Location = new Point(729, 2);
+            tbNameFilterFlex.Location = new Point(731, 2);
             tbNameFilterFlex.Name = "tbNameFilterFlex";
             tbNameFilterFlex.Size = new Size(142, 25);
             tbNameFilterFlex.TabIndex = 4;
@@ -90,7 +89,7 @@
             tbNameFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             tbNameFilter.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             tbNameFilter.ForeColor = Color.FromArgb(114, 114, 114);
-            tbNameFilter.Location = new Point(581, 2);
+            tbNameFilter.Location = new Point(583, 2);
             tbNameFilter.Name = "tbNameFilter";
             tbNameFilter.Size = new Size(142, 25);
             tbNameFilter.TabIndex = 1;
@@ -109,7 +108,7 @@
             flowPanelStock.Location = new Point(0, 63);
             flowPanelStock.Margin = new Padding(0);
             flowPanelStock.Name = "flowPanelStock";
-            flowPanelStock.Size = new Size(921, 412);
+            flowPanelStock.Size = new Size(921, 475);
             flowPanelStock.TabIndex = 3;
             // 
             // panel3
@@ -201,7 +200,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(884, 475);
+            ClientSize = new Size(884, 536);
             Controls.Add(flowPanelStock);
             Controls.Add(panel3);
             Controls.Add(panel1);

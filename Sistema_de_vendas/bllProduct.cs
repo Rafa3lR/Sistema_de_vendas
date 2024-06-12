@@ -12,44 +12,46 @@ namespace Sistema_de_vendas
     {
         DAL db;
 
-        public void inserir(dtoProduct dto)
+        public async Task InserirAsync(dtoProduct dto)
         {
             db = new DAL();
-            db.Conectar();
+            await db.ConectarAsync();
             string comando = $"call INSERIR_PRODUCT('{dto.ProductName}','{dto.QTDE}','{dto.Price}')";
-            db.ExecutarComandoSQL(comando);
+            await db.ExecutarComandoSQLAsync(comando);
+            await db.FecharAsync();
         }
 
-        public void alterar(dtoProduct dto)
+        public async Task AlterarAsync(dtoProduct dto)
         {
             db = new DAL();
-            db.Conectar();
+            await db.ConectarAsync();
             string comando = $"call ALTERAR_PRODUCT('{dto.ID}','{dto.ProductName}','{dto.QTDE}','{dto.Price}')";
-            db.ExecutarComandoSQL(comando);
+            await db.ExecutarComandoSQLAsync(comando);
+            await db.FecharAsync();
         }
 
-        public void deletar(dtoProduct dto)
+        public async Task DeletarAsync(dtoProduct dto)
         {
             db = new DAL();
-            db.Conectar();
+            await db.ConectarAsync();
             string comando = $"call DELETAR_PRODUCT('{dto.ID}')";
-            db.ExecutarComandoSQL(comando);
+            await db.ExecutarComandoSQLAsync(comando);
+            await db.FecharAsync();
         }
 
-        public void selecionar()
+        public async Task SelecionarAsync()
         {
             db = new DAL();
-            db.Conectar();
+            await db.ConectarAsync();
 
             string comando = "call SELECIONAR_TODOS_PRODUCT()";
 
-            MySqlDataReader reader = db.RetDataReader(comando);
-
+            MySqlDataReader reader = await db.RetDataReaderAsync(comando);
 
             Stock.dtoProduct.Clear();
             CadProducts.quantProds = 0;
 
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
                 Stock.dtoProduct.Add(new dtoProduct());
                 int i = Stock.dtoProduct.Count - 1;
@@ -59,13 +61,12 @@ namespace Sistema_de_vendas
                 Stock.dtoProduct[i].Price = reader.GetFloat(reader.GetOrdinal("PRICE_PRODUCT"));
 
                 CadProducts.quantProds = reader.GetInt32(reader.GetOrdinal("ID_PRODUCTS"));
-                
             }
 
             CadProducts.quantProds++;
 
-            reader.Close();
-            db.Fechar();
+            await reader.CloseAsync();
+            await db.FecharAsync();
         }
     }
 }

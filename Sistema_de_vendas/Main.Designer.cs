@@ -33,10 +33,7 @@
             btnExit = new Button();
             btnReports = new Button();
             btnStock = new Button();
-            mainStatusStrip = new StatusStrip();
-            mainProgressBar = new ToolStripProgressBar();
             panel1.SuspendLayout();
-            mainStatusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // btnSales
@@ -111,23 +108,6 @@
             btnStock.UseVisualStyleBackColor = false;
             btnStock.Click += btnStock_Click;
             // 
-            // mainStatusStrip
-            // 
-            mainStatusStrip.Items.AddRange(new ToolStripItem[] { mainProgressBar });
-            mainStatusStrip.Location = new Point(0, 419);
-            mainStatusStrip.Name = "mainStatusStrip";
-            mainStatusStrip.RenderMode = ToolStripRenderMode.Professional;
-            mainStatusStrip.RightToLeft = RightToLeft.Yes;
-            mainStatusStrip.Size = new Size(838, 22);
-            mainStatusStrip.SizingGrip = false;
-            mainStatusStrip.TabIndex = 1;
-            // 
-            // mainProgressBar
-            // 
-            mainProgressBar.ForeColor = Color.DarkRed;
-            mainProgressBar.Name = "mainProgressBar";
-            mainProgressBar.Size = new Size(150, 16);
-            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -135,17 +115,13 @@
             BackColor = Color.DarkGray;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(838, 441);
-            Controls.Add(mainStatusStrip);
             Controls.Add(panel1);
             Name = "Main";
             Text = "Melhor sistema do MUNDO";
             WindowState = FormWindowState.Maximized;
             Load += Main_Load;
             panel1.ResumeLayout(false);
-            mainStatusStrip.ResumeLayout(false);
-            mainStatusStrip.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -155,7 +131,5 @@
         private Button btnExit;
         private Button btnReports;
         private Button btnStock;
-        private StatusStrip mainStatusStrip;
-        public static ToolStripProgressBar mainProgressBar;
     }
 }
