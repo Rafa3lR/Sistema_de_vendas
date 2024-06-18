@@ -22,9 +22,9 @@ namespace Sistema_de_vendas
             {
                 indexCad = Products.indexCad;
                 indexProd = Products.indexProd;
-                tbPrice.Text = Stock.dtoProduct[indexCad].Price.ToString();
-                tbQuant.Text = Stock.dtoProduct[indexCad].QTDE.ToString();
-                tbName.Text = Stock.dtoProduct[indexCad].ProductName;
+                tbPrice.Text = Stock.selectedProducts.Price.ToString();
+                tbQuant.Text = Stock.selectedProducts.QTDE.ToString();
+                tbName.Text = Stock.selectedProducts.ProductName.ToString();
             }
             else if (mode == 0)
             {
@@ -43,33 +43,12 @@ namespace Sistema_de_vendas
             if (delete == DialogResult.OK)
             {
                 bllProduct.DeletarAsync(Stock.dtoProduct[indexCad]);
-                Stock.dtoProduct.RemoveAt(indexCad);
+                Stock.dtoProduct.Remove(Stock.selectedProducts);
 
                 tbName.Text = "";
                 tbQuant.Text = "";
                 tbPrice.Text = "";
 
-                int i = Stock.currentIndex - 1;
-                Products productCriar = new Products();
-                productCriar.ID = Stock.dtoProduct[i].ID;
-                productCriar.ProductName = Stock.dtoProduct[i].ProductName;
-                productCriar.QTDE = Stock.dtoProduct[i].QTDE;
-                productCriar.Price = Stock.dtoProduct[i].Price;
-                
-                if ((Stock.dtoProduct[i].ID % 2) == 0)
-                {
-                    productCriar.BackColor = Color.DarkCyan;
-                }
-                else
-                {
-                    productCriar.BackColor = Color.LightSeaGreen;
-                }
-                productCriar.Name = Stock.dtoProduct[i].ID.ToString();
-                Stock.products.AddLast(productCriar);
-                Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
-
-                Stock.flowPanelStock.Controls.Remove(Stock.productIndex(Stock.products, indexProd));
-                Stock.RemoveAt(Stock.products, indexProd);
                 this.Close();
             }
         }
@@ -91,7 +70,6 @@ namespace Sistema_de_vendas
                                     tbName.Text = "";
                                     tbQuant.Text = "";
                                     tbPrice.Text = "";
-                                    DrawNewProduct();
                                     this.Close();
                                     break;
                                 case 1:
@@ -99,14 +77,6 @@ namespace Sistema_de_vendas
                                     tbName.Text = "";
                                     tbQuant.Text = "";
                                     tbPrice.Text = "";
-
-                                    Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
-                                    Products products = (Products)control;
-                                    products.ID = Stock.dtoProduct[indexCad].ID;
-                                    products.ProductName = Stock.dtoProduct[indexCad].ProductName;
-                                    products.QTDE = Stock.dtoProduct[indexCad].QTDE;
-                                    products.Price = Stock.dtoProduct[indexCad].Price;
-
                                     this.Close();
                                     break;
                             }
@@ -139,10 +109,11 @@ namespace Sistema_de_vendas
 
         private void UpdateProductList()
         {
-            Stock.dtoProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
-            Stock.dtoProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
-            Stock.dtoProduct[indexCad].ProductName = tbName.Text;
-            bllProduct.AlterarAsync(Stock.dtoProduct[indexCad]);
+            int index = Stock.dtoProduct.IndexOf(Stock.selectedProducts);
+            Stock.dtoProduct[index].QTDE = Convert.ToSingle(tbQuant.Text);
+            Stock.dtoProduct[index].Price = Convert.ToSingle(tbPrice.Text);
+            Stock.dtoProduct[index].ProductName = tbName.Text;
+            bllProduct.AlterarAsync(Stock.dtoProduct[index]);
         }
 
         private void CreateNewProductOnList()
@@ -155,28 +126,6 @@ namespace Sistema_de_vendas
             Stock.dtoProduct[i].ProductName = tbName.Text;
             bllProduct.InserirAsync(Stock.dtoProduct[i]);
             quantProds++;
-        }
-
-        private static void DrawNewProduct()
-        {
-            Products products = new Products();
-            int index = Stock.dtoProduct.Count() - 1;
-            products.ID = Stock.dtoProduct[index].ID;
-            products.ProductName = Stock.dtoProduct[index].ProductName;
-            products.QTDE = Stock.dtoProduct[index].QTDE;
-            products.Price = Stock.dtoProduct[index].Price;
-            
-            if ((index % 2) == 0)
-            {
-                products.BackColor = Color.DarkCyan;
-            }
-            else
-            {
-                products.BackColor = Color.LightSeaGreen;
-            }
-            Stock.products.AddLast(products);
-            Stock.currentIndex++;
-            Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
         }
 
         private void CadProducts_KeyDown(object sender, KeyEventArgs e)
