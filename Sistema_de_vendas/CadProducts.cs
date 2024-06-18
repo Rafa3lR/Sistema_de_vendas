@@ -142,7 +142,7 @@ namespace Sistema_de_vendas
             Stock.dtoProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
             Stock.dtoProduct[indexCad].Price = Convert.ToSingle(tbPrice.Text);
             Stock.dtoProduct[indexCad].ProductName = tbName.Text;
-            bllProduct.AlterarAsync(Stock.dtoProduct[indexCad]);
+            bllProduct.AlterarAsync(Stock.dtoProduct[indexProd]);
         }
 
         private void CreateNewProductOnList()
