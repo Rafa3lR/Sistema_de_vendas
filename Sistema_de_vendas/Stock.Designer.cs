@@ -108,7 +108,7 @@
             flowPanelStock.Location = new Point(0, 63);
             flowPanelStock.Margin = new Padding(0);
             flowPanelStock.Name = "flowPanelStock";
-            flowPanelStock.Size = new Size(921, 475);
+            flowPanelStock.Size = new Size(932, 475);
             flowPanelStock.TabIndex = 3;
             // 
             // panel3

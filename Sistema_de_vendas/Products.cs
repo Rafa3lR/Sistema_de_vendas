@@ -19,6 +19,14 @@ namespace Sistema_de_vendas
 
         private void Products_Load(object sender, EventArgs e)
         {
+            DefineFundoTransparent();
+        }
+
+        private string _productname;
+        public static int indexCad, indexProd;
+
+        private void DefineFundoTransparent()
+        {
             lblID.Parent = btnProducts;
             lblID.BackColor = Color.Transparent;
             lblProductName.Parent = btnProducts;
@@ -28,9 +36,6 @@ namespace Sistema_de_vendas
             lblPrice.Parent = btnProducts;
             lblPrice.BackColor = Color.Transparent;
         }
-
-        private string _productname;
-        public static int indexCad, indexProd;
 
         private void btnProducts_Click(object sender, EventArgs e)
         {

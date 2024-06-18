@@ -78,36 +78,60 @@ namespace Sistema_de_vendas
         {
             try
             {
-                switch (mode)
+                if (tbName.Text != "")
                 {
-                    case 0:
-                        CreateNewProductOnList();
-                        tbName.Text = "";
-                        tbQuant.Text = "";
-                        tbPrice.Text = "";
-                        DrawNewProduct();
-                        this.Close();
-                        break;
-                    case 1:
-                        UpdateProductList();
-                        tbName.Text = "";
-                        tbQuant.Text = "";
-                        tbPrice.Text = "";
+                    if (tbQuant.Text != "")
+                    {
+                        if (tbPrice.Text != "")
+                        {
+                            switch (mode)
+                            {
+                                case 0:
+                                    CreateNewProductOnList();
+                                    tbName.Text = "";
+                                    tbQuant.Text = "";
+                                    tbPrice.Text = "";
+                                    DrawNewProduct();
+                                    this.Close();
+                                    break;
+                                case 1:
+                                    UpdateProductList();
+                                    tbName.Text = "";
+                                    tbQuant.Text = "";
+                                    tbPrice.Text = "";
 
-                        Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
-                        Products products = (Products)control;
-                        products.ID = Stock.dtoProduct[indexCad].ID;
-                        products.ProductName = Stock.dtoProduct[indexCad].ProductName;
-                        products.QTDE = Stock.dtoProduct[indexCad].QTDE;
-                        products.Price = Stock.dtoProduct[indexCad].Price;
+                                    Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
+                                    Products products = (Products)control;
+                                    products.ID = Stock.dtoProduct[indexCad].ID;
+                                    products.ProductName = Stock.dtoProduct[indexCad].ProductName;
+                                    products.QTDE = Stock.dtoProduct[indexCad].QTDE;
+                                    products.Price = Stock.dtoProduct[indexCad].Price;
 
-                        this.Close();
-                        break;
+                                    this.Close();
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("You must insert a price", "Price is null", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            tbPrice.Focus();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You must insert a quantity", "Quant is null", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbQuant.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must insert a name", "Name is null", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tbName.Focus();
                 }
             }
             catch
             {
-                MessageBox.Show("Invalid imput format", "Invalid imput", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error ocurred!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 int i = Stock.dtoProduct.Count() - 1;
                 Stock.dtoProduct.RemoveAt(i);
             }

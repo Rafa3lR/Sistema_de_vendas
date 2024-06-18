@@ -74,7 +74,7 @@ namespace Sistema_de_vendas
                     productCriar.Price = dtoProduct[i].Price;
                     
 
-                    if ((dtoProduct[i].ID % 2) == 0)
+                    if ((i % 2) == 0)
                     {
                         productCriar.BackColor = Color.DarkCyan;
                     }
@@ -116,7 +116,7 @@ namespace Sistema_de_vendas
                     productCriar.ProductName = dtoProduct[currentIndex - quant].ProductName;
                     productCriar.QTDE = dtoProduct[currentIndex - quant].QTDE;
                     productCriar.Price = dtoProduct[currentIndex - quant].Price;
-                    if ((dtoProduct[currentIndex - quant].ID % 2) == 0)
+                    if ((currentIndex - quant) % 2 == 0)
                     {
                         productCriar.BackColor = Color.DarkCyan;
                     }
@@ -182,31 +182,45 @@ namespace Sistema_de_vendas
             return -1;
         }
 
-        private void tbNameFilter_KeyDown(object sender, KeyEventArgs e)
+        private async void tbNameFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                /*searchType = 1;
-                nameFilter = tbNameFilter.Text;
                 currentIndex = 0;
-                quantProdToDraw = 150;
+                quantProdToDraw = 16;
                 flowPanelStock.Controls.Clear();
+                bllProduct bllProduct = new bllProduct();
+                await bllProduct.SearchStrictAsync(tbNameFilter.Text);
                 FilterAndDrawItens(quantProdToDraw);
-                quantProdToDraw = 1;*/
+                quantProdToDraw = 1;
+
+                if (tbNameFilter.Text == "")
+                {
+                    tbNameFilter.ForeColor = Color.FromArgb(100, 114, 114, 114);
+                    tbNameFilter.Text = "NAME RESTRICTED";
+                    btnADD.Focus();
+                }
             }
         }
 
-        private void tbNameFilterFlex_KeyDown(object sender, KeyEventArgs e)
+        private async void tbNameFilterFlex_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                /*searchType = 0;
-                nameFilter = tbNameFilterFlex.Text;
                 currentIndex = 0;
-                quantProdToDraw = 150;
+                quantProdToDraw = 16;
                 flowPanelStock.Controls.Clear();
+                bllProduct bllProduct = new bllProduct();
+                await bllProduct.SearchFlexibleAsync(tbNameFilterFlex.Text);
                 FilterAndDrawItens(quantProdToDraw);
-                quantProdToDraw = 1;*/
+                quantProdToDraw = 1;
+
+                if (tbNameFilterFlex.Text == "")
+                {
+                    tbNameFilterFlex.ForeColor = Color.FromArgb(100, 114, 114, 114);
+                    tbNameFilterFlex.Text = "NAME FLEXIBLE";
+                    btnADD.Focus();
+                }
             }
         }
 
