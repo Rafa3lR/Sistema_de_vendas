@@ -49,24 +49,22 @@ namespace Sistema_de_vendas
                 tbQuant.Text = "";
                 tbPrice.Text = "";
 
-                int i = Stock.currentIndex - 1;
-                Products productCriar = new Products();
-                productCriar.ID = Stock.dtoProduct[i].ID;
-                productCriar.ProductName = Stock.dtoProduct[i].ProductName;
-                productCriar.QTDE = Stock.dtoProduct[i].QTDE;
-                productCriar.Price = Stock.dtoProduct[i].Price;
-                
-                if ((Stock.dtoProduct[i].ID % 2) == 0)
+                try
                 {
-                    productCriar.BackColor = Color.DarkCyan;
-                }
-                else
-                {
-                    productCriar.BackColor = Color.LightSeaGreen;
-                }
-                productCriar.Name = Stock.dtoProduct[i].ID.ToString();
-                Stock.products.AddLast(productCriar);
-                Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
+                    if (Stock.currentIndex > 15)
+                    {
+                        int i = Stock.currentIndex - 1;
+                        Products productCriar = new Products();
+                        productCriar.ID = Stock.dtoProduct[i].ID;
+                        productCriar.ProductName = Stock.dtoProduct[i].ProductName;
+                        productCriar.QTDE = Stock.dtoProduct[i].QTDE;
+                        productCriar.Price = Stock.dtoProduct[i].Price;
+
+                        productCriar.Name = Stock.dtoProduct[i].ID.ToString();
+                        Stock.products.AddLast(productCriar);
+                        Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
+                    }
+                } catch { }
 
                 Stock.flowPanelStock.Controls.Remove(Stock.productIndex(Stock.products, indexProd));
                 Stock.RemoveAt(Stock.products, indexProd);
@@ -99,14 +97,7 @@ namespace Sistema_de_vendas
                                     tbName.Text = "";
                                     tbQuant.Text = "";
                                     tbPrice.Text = "";
-
-                                    Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
-                                    Products products = (Products)control;
-                                    products.ID = Stock.dtoProduct[indexCad].ID;
-                                    products.ProductName = Stock.dtoProduct[indexCad].ProductName;
-                                    products.QTDE = Stock.dtoProduct[indexCad].QTDE;
-                                    products.Price = Stock.dtoProduct[indexCad].Price;
-
+                                    UpdateProductDetails();
                                     this.Close();
                                     break;
                             }
@@ -137,6 +128,16 @@ namespace Sistema_de_vendas
             }
         }
 
+        private void UpdateProductDetails()
+        {
+            Control control = Stock.flowPanelStock.Controls.Find(Convert.ToString(Stock.productIndex(Stock.products, indexProd).Name), true).FirstOrDefault();
+            Products products = (Products)control;
+            products.ID = Stock.dtoProduct[indexCad].ID;
+            products.ProductName = Stock.dtoProduct[indexCad].ProductName;
+            products.QTDE = Stock.dtoProduct[indexCad].QTDE;
+            products.Price = Stock.dtoProduct[indexCad].Price;
+        }
+
         private void UpdateProductList()
         {
             Stock.dtoProduct[indexCad].QTDE = Convert.ToSingle(tbQuant.Text);
@@ -165,17 +166,12 @@ namespace Sistema_de_vendas
             products.ProductName = Stock.dtoProduct[index].ProductName;
             products.QTDE = Stock.dtoProduct[index].QTDE;
             products.Price = Stock.dtoProduct[index].Price;
-            
-            if ((index % 2) == 0)
-            {
-                products.BackColor = Color.DarkCyan;
-            }
-            else
-            {
-                products.BackColor = Color.LightSeaGreen;
-            }
+
             Stock.products.AddLast(products);
-            Stock.currentIndex++;
+            if (Stock.currentIndex < 15)
+            {
+                Stock.currentIndex++;
+            }
             Stock.flowPanelStock.Controls.Add(Stock.products.Last.Value);
         }
 

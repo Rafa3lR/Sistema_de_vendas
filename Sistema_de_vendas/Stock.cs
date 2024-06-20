@@ -73,15 +73,6 @@ namespace Sistema_de_vendas
                     productCriar.QTDE = dtoProduct[i].QTDE;
                     productCriar.Price = dtoProduct[i].Price;
                     
-
-                    if ((i % 2) == 0)
-                    {
-                        productCriar.BackColor = Color.DarkCyan;
-                    }
-                    else
-                    {
-                        productCriar.BackColor = Color.LightSeaGreen;
-                    }
                     productCriar.Name = dtoProduct[i].ID.ToString();
                     products.AddLast(productCriar);
                     flowPanelStock.Controls.Add(products.Last.Value);
@@ -116,14 +107,6 @@ namespace Sistema_de_vendas
                     productCriar.ProductName = dtoProduct[currentIndex - quant].ProductName;
                     productCriar.QTDE = dtoProduct[currentIndex - quant].QTDE;
                     productCriar.Price = dtoProduct[currentIndex - quant].Price;
-                    if ((currentIndex - quant) % 2 == 0)
-                    {
-                        productCriar.BackColor = Color.DarkCyan;
-                    }
-                    else
-                    {
-                        productCriar.BackColor = Color.LightSeaGreen;
-                    }
                     RemoveAt(products, flowPanelStock.Controls.Count - 1);
                     flowPanelStock.Controls.RemoveAt(flowPanelStock.Controls.Count - 1);
                     productCriar.Name = dtoProduct[currentIndex - quant].ID.ToString();

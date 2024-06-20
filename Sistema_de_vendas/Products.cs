@@ -15,6 +15,17 @@ namespace Sistema_de_vendas
         public Products()
         {
             InitializeComponent();
+
+            if ((quantidade % 2) == 0)
+            {
+                BackColor = Color.DarkCyan;
+            }
+            else
+            {
+                BackColor = Color.LightSeaGreen;
+            }
+
+            quantidade++;
         }
 
         private void Products_Load(object sender, EventArgs e)
@@ -24,6 +35,7 @@ namespace Sistema_de_vendas
 
         private string _productname;
         public static int indexCad, indexProd;
+        private static int quantidade = 0;
 
         private void DefineFundoTransparent()
         {
