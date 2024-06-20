@@ -12,7 +12,7 @@ namespace Sistema_de_vendas
         private String user = "root";
         private String database = "SISTEMA_DE_VENDAS";
         private String port = "3306";
-        private String password = "168395";
+        private String password = "root";
 
         public async Task ConectarAsync()
         {
