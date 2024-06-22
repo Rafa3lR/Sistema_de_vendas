@@ -12,7 +12,7 @@ namespace Sistema_de_vendas
         private String user = "root";
         private String database = "SISTEMA_DE_VENDAS";
         private String port = "3306";
-        private String password = "root";
+        private String password = "168395";
 
         public async Task ConectarAsync()
         {
@@ -51,9 +51,6 @@ namespace Sistema_de_vendas
                 {
                     MySqlCommand comando = new MySqlCommand(comandoSql, conn);
                     await comando.ExecuteNonQueryAsync();
-                }
-                else
-                {
                 }
             }
             catch

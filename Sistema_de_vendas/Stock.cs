@@ -275,6 +275,7 @@ namespace Sistema_de_vendas
             currentIndex = 0;
             quantProdToDraw = 16;
             flowPanelStock.Controls.Clear();
+            products.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
         }
@@ -305,6 +306,7 @@ namespace Sistema_de_vendas
             orderBy = "name";
             currentIndex = 0;
             quantProdToDraw = 16;
+            products.Clear();
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
@@ -335,6 +337,7 @@ namespace Sistema_de_vendas
             orderBy = "quant";
             currentIndex = 0;
             quantProdToDraw = 16;
+            products.Clear();
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
@@ -365,6 +368,7 @@ namespace Sistema_de_vendas
             orderBy = "price";
             currentIndex = 0;
             quantProdToDraw = 16;
+            products.Clear();
             flowPanelStock.Controls.Clear();
             FilterAndDrawItens(quantProdToDraw);
             quantProdToDraw = 1;
